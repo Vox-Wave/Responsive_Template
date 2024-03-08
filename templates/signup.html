@@ -2,12 +2,138 @@
 
 {% block mytitle %}Signup - VoxWave{% endblock %}
 
-{% block mycss %}{% endblock %}
+{% block mycss %}
+<style>
+    
+  /* Custom CSS for footer positioning */
+  .footer-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  /* Media query for screens smaller than 600px */
+  @media (max-width: 767px) {
+    /* Custom CSS rules for screens smaller than 600px */
+    /* Adjust styles for smaller screens here */
+    .login-card{
+      width:80%;
+      height: auto;
+    }
+    .input-box{
+      width:220px;
+      margin-bottom: 10px;
+    }
+    .create-account{
+      padding-right: 30px;
+    }
+    .login-button{
+      width: 220px !important;
+      height:  40px !important;
+    }
+    .messages{
+      margin-top: 80px;
+    }
+  }
+
+  /* Media query for screens between 601px and 900px */
+  @media (min-width: 768px) and (max-width: 899px){
+    /* Custom CSS rules for screens between 601px and 900px */
+    /* Adjust styles for medium-sized screens here */
+    .login-card{
+      width:50%;
+      height: auto;
+    }
+    .input-box{
+      width:300px;
+      margin-bottom: 10px;
+    }
+    .create-account{
+      padding-right: 50px;
+    }
+    .login-button{
+      width: 300px !important;
+      height:  45px !important;
+    }
+    .messages{
+      margin-top: 80px;
+    }
+  }
+
+  /* Media query for screens between 601px and 900px */
+  @media (min-width: 900px) and (max-width: 1199px) {
+    /* Custom CSS rules for screens between 601px and 900px */
+    /* Adjust styles for medium-sized screens here */
+    .login-card{
+      width:50%;
+      height: auto;
+    }
+    .input-box{
+      width:300px;
+      margin-bottom: 10px;
+    }
+    .create-account{
+      padding-right: 60px;
+    }
+    .login-button{
+      width: 300px !important;
+      height:  45px !important;
+    }
+    .messages{
+      margin-top: 100px;
+    }
+  }
+
+  /* Media query for screens larger than 901px */
+  @media screen and ((min-width: 1200px) and (max-width: 1700px)) {
+    /* Custom CSS rules for screens larger than 901px */
+    /* Adjust styles for larger screens here */
+    .login-card{
+      width:50%;
+      height: auto;
+    }
+    .input-box{
+      width:400px;
+      margin-bottom: 10px;
+    }
+    .create-account{
+      padding-right: 80px;
+    }
+    .login-button{
+      width: 400px !important;
+      height:  45px !important;
+    }
+    .messages{
+      margin-top: 140px;
+    }
+  }
+  /* Media query for screens larger than 901px */
+  @media screen and (min-width: 1701px) {
+    /* Custom CSS rules for screens larger than 901px */
+    /* Adjust styles for larger screens here */
+    .login-card{
+      width:40%;
+      height: auto;
+    }
+    .input-box{
+      width:520px;
+      margin-bottom: 10px;
+    }
+    .create-account{
+      padding-right: 100px;
+    }
+    .login-button{
+      width: 520px !important;
+      height:  45px !important;
+    }
+    .messages{
+      margin-top: 140px;
+    }
+  }
+  </style>
+{% endblock %}
 
 {% block mybody %}
-<h1> This is the Register Page</h1>
-<br>
-<form action="" method="POST">
+<!--<form action="" method="POST">
     {% csrf_token %}
     <input type="text" name="username" placeholder="Username" required><br>
     <input type="email" name="email" placeholder="Email" ><br>
@@ -19,7 +145,53 @@
     <div >
         <p > Do you have an account? <a href="/signin"> Login </a></p>
     </div>
-</form>
+</form>-->
+<header class="w3-container w3-round">
+    <h1><b>VoxWave</b></h1>
+</header>
+  
+  <div class="w3-container">
+    {% if messages%}
+      <div class="w3-panel w3-pale-green messages w3-round w3-display-topmiddle">
+        {% for message in messages %}
+          <p>{{message}}</p>
+        {% endfor %}
+      </div>
+    {% endif %} 
+    <div class="w3-card-4 login-card w3-round-xlarge w3-display-middle w3-display-middle" style="background-color: #f2f2f2;{%if messages %} margin-top: 10px;{% endif %}">
+        <br><br>
+        <label class="w3-left" style="padding-left: 40px; font-size: 25px;"><b>REGISTER</b></label>
+        <br><br><br>
+        <form action="" method="POST" style="padding-left: 40px;" id="registerForm">
+            {% csrf_token %}
+            <input type="text" class="w3-input w3-animate-input input-box w3-round" name="username" placeholder="Username" required>
+            
+            <input type="email" class="w3-input w3-animate-input input-box w3-round" name="email" placeholder="Email" required>
+            
+            <input type="text" class="w3-input w3-animate-input input-box w3-round" name="first_name" placeholder="First Name" required>
+           
+            <input type="text" class="w3-input w3-animate-input input-box w3-round" name="last_name" placeholder="Last Name">
+            
+            <input type="password" class="w3-input w3-animate-input input-box w3-round" name="password" placeholder="Password" required>
+            
+            <input type="password" class="w3-input w3-animate-input input-box w3-round" name="password2" placeholder="Confirm Password" required>
+            <br>
+            <button class="login-button w3-btn w3-border w3-round-large" style="background-color: #cccccc; color: white;" type="submit"><b>Register</b></button>
+            <br><br>
+        <div class="w3-right create-account" style="font-size: 12px;">
+                <p> Already Have an Account? <a href="/signin" style="text-decoration: none;"><b> Login Here </b></a></p>
+            </div>
+            <br>
+        </form>
+    </div>
+  </div>
+  <footer class="w3-container footer-container w3-center w3-round">
+    <p> © copyright 2024 by VoxWave</p>
+  </footer>
 {% endblock %}
     
-{% block myscript %}{% endblock %}
+{% block myscript %}
+<script>
+    
+</script>
+{% endblock %}

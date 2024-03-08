@@ -148,16 +148,27 @@ def settings_view(request):
         image = request.FILES.get('image', user_profile.profileimg)
         bio = request.POST.get("bio", "")
         location = request.POST.get("location", "")
-        mute = request.POST.get("mute", False)
-        deaf = request.POST.get("deaf", False)
-        blind = request.POST.get("blind", False)
+        disability = request.POST.get("disability", None)
 
         user_profile.profileimg = image
         user_profile.bio = bio
         user_profile.location = location
-        user_profile.is_mute = mute
-        user_profile.is_deaf = deaf
-        user_profile.is_blind = blind
+        if disability == "blind":
+            user_profile.is_blind = True
+            user_profile.is_deaf = False
+            user_profile.is_mute = False
+        elif disability == "deaf":
+            user_profile.is_blind = False
+            user_profile.is_deaf = True
+            user_profile.is_mute = False
+        elif disability == "mute":
+            user_profile.is_blind = False
+            user_profile.is_deaf = False
+            user_profile.is_mute = True
+        else:
+            user_profile.is_blind = False
+            user_profile.is_deaf = False
+            user_profile.is_mute = False
         user_profile.save()
 
         return redirect("settings")
@@ -174,11 +185,11 @@ def signup(request):
         password2 = request.POST['password2']
 
         if password == password2:
-            if User.objects.filter(email=email).exists():
-                messages.info(request, "Email Already Taken")
-                return redirect('signup')
-            elif User.objects.filter(username=username).exists():
+            if User.objects.filter(username=username).exists():
                 messages.info(request, "Username Already Taken")
+                return redirect('signup')
+            elif User.objects.filter(email=email).exists():
+                messages.info(request, "Email Already Taken")
                 return redirect('signup')
             else:
                 user = User.objects.create_user(username=username, email=email, first_name=first_name, last_name=last_name, password=password)
