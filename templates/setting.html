@@ -3,7 +3,6 @@
 {% block mytitle %}Bio Settings - VoxWave{% endblock %}
 
 {% block mycss %}
-<link href="https://fonts.googleapis.com/css2?family=Clicker+Script&family=Foldit:wght@600&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
     /* Media query for screens smaller than 600px */
     @media (max-width: 767px) {
@@ -14,19 +13,49 @@
         height: 80px;
       }
       .edit-button{
-        margin-top: 300px; 
-        margin-right: 30px; 
+        margin-top: 600px; 
+        margin-right: 10%; 
         height: 50px;
       }
       .bio-card{
         width: 85%;
       }
       .profile-settings{
-        width: 380px; 
+        width: 85%; 
         height: 600px; 
       }
       .image-container{
         padding:20px;
+      }
+      .save-button{
+        margin-bottom: 20px; 
+        margin-top: 10px;
+        width: 80px; 
+        height: 40px;
+      }
+      
+      .labels{
+        padding-left: 20px; 
+        padding-top: 20px; 
+        font-size: 16px;
+        margin-top: 20px;
+      }
+      .image-input{
+        margin-left: 60px;
+      }
+      .textarea-input{
+        margin-top: 42px; 
+        padding-left: 10px; 
+        padding-top: 10px; 
+        margin-left: 10px;
+      }
+      .location-input{
+        padding-left: 10px;
+        margin-left: 8px;
+      }
+      .modal-card{
+        width: 50%;
+        height: auto;
       }
     }
 
@@ -34,6 +63,56 @@
     @media (min-width: 768px) and (max-width: 899px){
       /* Custom CSS rules for screens between 601px and 900px */
       /* Adjust styles for medium-sized screens here */
+      .image{
+        width: 80px;
+        height: 80px;
+      }
+      .edit-button{
+        margin-top: 600px; 
+        margin-right: 20%; 
+        height: 50px;
+      }
+      .bio-card{
+        width: 85%;
+        height: auto;
+      }
+      .profile-settings{
+        width: 85%; 
+        height: 650px; 
+      }
+      .image-container{
+        padding:30px;
+      }
+      .save-button{
+        margin-bottom: 20px; 
+        margin-top: 10px;
+        width: 80px; 
+        height: 40px;
+      }
+      
+      .labels{
+        padding-left: 20px; 
+        padding-top: 30px; 
+        font-size: 16px;
+        margin-top: 20px;
+      }
+      .image-input{
+        margin-left: 60px;
+      }
+      .textarea-input{
+        margin-top: 42px; 
+        padding-left: 10px; 
+        padding-top: 10px; 
+        margin-left: 10px;
+      }
+      .location-input{
+        padding-left: 10px;
+        margin-left: 8px;
+      }
+      .modal-card{
+        width: 50%;
+        height: auto;
+      }
       
     }
 
@@ -41,20 +120,167 @@
     @media (min-width: 900px) and (max-width: 1199px) {
       /* Custom CSS rules for screens between 601px and 900px */
       /* Adjust styles for medium-sized screens here */
+      .image{
+        width: 80px;
+        height: 80px;
+      }
+      .edit-button{
+        margin-top: 600px; 
+        margin-right: 25%; 
+        height: 50px;
+      }
+      .bio-card{
+        width: 85%;
+        height: auto;
+      }
+      .profile-settings{
+        width: 70%; 
+        height: 650px; 
+      }
+      .image-container{
+        padding:30px;
+      }
+      .save-button{
+        margin-bottom: 20px; 
+        margin-top: 10px;
+        width: 80px; 
+        height: 40px;
+      }
       
+      .labels{
+        padding-left: 20px; 
+        padding-top: 30px; 
+        font-size: 16px;
+        margin-top: 20px;
+      }
+      .image-input{
+        margin-left: 60px;
+      }
+      .textarea-input{
+        margin-top: 42px; 
+        padding-left: 10px; 
+        padding-top: 10px; 
+        margin-left: 10px;
+      }
+      .location-input{
+        padding-left: 10px;
+        margin-left: 8px;
+      }
+      .modal-card{
+        width: 45%;
+        height: auto;
+      }
     }
 
     /* Media query for screens larger than 901px */
     @media screen and ((min-width: 1200px) and (max-width: 1700px)) {
       /* Custom CSS rules for screens larger than 901px */
       /* Adjust styles for larger screens here */
+      .image{
+        width: 80px;
+        height: 80px;
+      }
+      .edit-button{
+        margin-top: 600px; 
+        margin-right: 25%; 
+        height: 50px;
+      }
+      .bio-card{
+        width: 85%;
+        height: auto;
+      }
+      .profile-settings{
+        width: 60%; 
+        height: 650px; 
+      }
+      .image-container{
+        padding:30px;
+      }
+      .save-button{
+        margin-bottom: 20px; 
+        margin-top: 10px;
+        width: 80px; 
+        height: 40px;
+      }
       
+      .labels{
+        padding-left: 20px; 
+        padding-top: 30px; 
+        font-size: 16px;
+        margin-top: 20px;
+      }
+      .image-input{
+        margin-left: 60px;
+      }
+      .textarea-input{
+        margin-top: 42px; 
+        padding-left: 10px; 
+        padding-top: 10px; 
+        margin-left: 10px;
+      }
+      .location-input{
+        padding-left: 10px;
+        margin-left: 8px;
+      }
+      .modal-card{
+        width: 50%;
+        height: auto;
+      }
     }
     /* Media query for screens larger than 901px */
     @media screen and (min-width: 1701px) {
       /* Custom CSS rules for screens larger than 901px */
       /* Adjust styles for larger screens here */
+      .image{
+        width: 80px;
+        height: 80px;
+      }
+      .edit-button{
+        margin-top: 700px; 
+        margin-right: 25%; 
+        height: 50px;
+      }
+      .bio-card{
+        width: 85%;
+        height: auto;
+      }
+      .profile-settings{
+        width: 60%; 
+        height: 700px; 
+      }
+      .image-container{
+        padding:30px;
+      }
+      .save-button{
+        margin-bottom: 20px; 
+        margin-top: 10px;
+        width: 80px; 
+        height: 40px;
+      }
       
+      .labels{
+        padding-left: 20px; 
+        padding-top: 30px; 
+        font-size: 16px;
+        margin-top: 20px;
+      }
+      .image-input{
+        margin-left: 60px;
+      }
+      .textarea-input{
+        margin-top: 42px; 
+        padding-left: 10px; 
+        padding-top: 10px; 
+        margin-left: 10px;
+      }
+      .location-input{
+        padding-left: 10px;
+        margin-left: 8px;
+      }
+      .modal-card{
+        width: 50%;
+        height: auto;
+      }
     }
 </style>
 {% endblock %}
@@ -84,25 +310,26 @@
             </form>-->
 
         </div>
-        <button onclick="document.getElementById('id01').style.display='block'" class="w3-right w3-round edit-button w3-btn w3-border w3-round-large" style="background-color: #cccccc; color: white;">Edit Profile</button>
+      </div>
+        <button onclick="document.getElementById('id01').style.display='block'" class="w3-right w3-round edit-button w3-btn w3-border w3-round-large" style="background-color: #cccccc; color: white;  position: relative; z-index: 1;">Edit Profile</button>
         <div id="id01" class="w3-modal">
-            <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-xlarge">
-              <header class="w3-container w3-teal"> 
+            <div class="w3-modal-content w3-card-4 modal-card w3-animate-zoom w3-round-xlarge">
+              <header class="w3-container w3-teal w3-round"> 
                 <span onclick="document.getElementById('id01').style.display='none'" 
-                class="w3-button w3-display-topright">&times;</span>
-                <h2>Edit Profile</h2>
+                class="w3-button w3-display-topright w3-round">&times;</span>
+                <h2 class="w3-center"><b>Edit Profile</b></h2>
               </header>
               <div class="w3-container">
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <label class="w3-left" style="padding-left: 20px; padding-top: 20px; font-size: 16px;"><b>Upload Profile Pic:</b><br><br></label>
-                    <input type="file" name="image" value="" style="margin-left: 60px;">
-                    <label class="w3-left" for="about"style="margin-top: 20px; padding-left: 20px;" ><b>About me:</b></label>  
-                    <textarea id="about" name="bio" rows="3" style="margin-top: 42px; padding-left: 10px; padding-top: 10px; margin-left: 5px;">{{user_profile.bio}}</textarea>
+                    <label class="w3-left labels"><b>Upload Profile Pic:</b></label><br><br>
+                    <input type="file" class="image-input" name="image" value=""><br><br>
+                    <label class="w3-left labels" for="about"><b>About me:</b></label>  
+                    <textarea id="about" name="bio" class="textarea-input" rows="3" >{{user_profile.bio}}</textarea>
                     <br>
-                    <label for="" style="padding-left:20px;"><b>Location:</b>&nbsp;</label>
-                    <input type="text" id="location" name="location" value="{{user_profile.location}}" placeholder="" style="padding-left: 10px;">
-                    <br>
+                    <label for="" class="labels"><b>Location:</b>&nbsp;</label>
+                    <input type="text" id="location" name="location" value="{{user_profile.location}}" placeholder="" class="location-input">
+                    <br><br><br>
                     <div class="w3-container">
                         <br>
                         <input class="w3-radio" type="radio" name="disability" value="blind" id="blind" {% if user_profile.is_blind %}checked{% endif %}> <label>Blind</label>&nbsp;
@@ -111,15 +338,15 @@
                         <input class="w3-radio" type="radio" name="disability" value="none" id="none" {% if not user_profile.is_blind and not user_profile.is_deaf and not user_profile.is_mute %}checked{% endif %}> <label>Normal</label>
                     </div>
                     <br>
-                    <div class="w3-container w3-right" style="margin-bottom: 20px; margin-top: 10px;"> 
-                        <button type="submit" style="width: 80px; height: 40px;" class="w3-btn w3-border w3-round-large" style="background-color: #cccccc; color: white;"> Save </button>
+                    <div class="w3-container w3-right"> 
+                        <button type="submit" class="w3-btn w3-border w3-round-large save-button" style="background-color: #cccccc; color: white;"> Save </button>
                     </div>   
                     <br>
                 </form>
               </div>
             </div>
           </div>
-    </div>
+    
     
 </div>
 
