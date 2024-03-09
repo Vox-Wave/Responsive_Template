@@ -171,7 +171,7 @@ def settings_view(request):
             user_profile.is_mute = False
         user_profile.save()
 
-        return redirect("settings")
+        return redirect("/")
     return render(request, "setting.html", {'user_profile': user_profile})
 
 def signup(request):
