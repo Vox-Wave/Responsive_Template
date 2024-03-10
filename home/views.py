@@ -297,7 +297,21 @@ def profile(request, pk):
         follower_user = User.objects.get(username=username)
         follower_profile = Profile.objects.get(user=follower_user)
         follower_list.append(follower_profile)
+
+    following_list = []
+    following_username = []
+    following_object = FollowersCount.objects.filter(follower=pk)
+    for name in following_object:
+        following_username.append(name.user)
+    for username in following_username:
+        following_user = User.objects.get(username=username)
+        following_profile = Profile.objects.get(user=following_user)
+        following_list.append(following_profile)
+    # print(following_username)
     # print(follower_list)
+    # print(following_list)
+    # print(user_followers)
+    # print(user_following)
     # for users in follower_list:
     #     print(users.user.username)
 
@@ -310,6 +324,7 @@ def profile(request, pk):
         "user_followers": user_followers,
         "user_following": user_following,
         "follower_list": follower_list,
+        "following_list": following_list,
     }
     return render(request, "profile.html", context)
 
@@ -597,34 +612,6 @@ def get_chat_log(request, currentUser):
         chat_data.append(chat_item)
     # print(chat_data)
     return JsonResponse({'chat_history': chat_data})
-
-@login_required(login_url='signin')
-def follower_following_count(request,pk):
-    follower_username = []
-    follower_object = FollowersCount.objects.filter(user=pk)
-    for name in follower_object:
-        follower_username.append(name.follower)
-    # print(follower_username)
-    follower_list = []
-    for username in follower_username:
-        follower_user = User.objects.get(username=username)
-        follower_profile = Profile.objects.get(user=follower_user)
-        follower_list.append(follower_profile)
-    # print(follower_list)
-
-
-    following_username = []
-    following_object = FollowersCount.objects.filter(follower=pk)
-    for name in following_object:
-        following_username.append(name.user)
-    # print(follower_username)
-    following_list = []
-    for username in following_username:
-        following_user = User.objects.get(username=username)
-        following_profile = Profile.objects.get(user=following_user)
-        following_list.append(following_profile)
-    # print(following_username)
-    return render(request,"follower_following.html",{"follower_list":follower_list,"following_list":following_list})
 
 @csrf_exempt
 @login_required(login_url='signin')
