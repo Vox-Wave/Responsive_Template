@@ -351,12 +351,12 @@ def search(request):
 
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
-
+    username_profile_list = []
     if request.method == "POST":
         username = request.POST['username']
         username_object = User.objects.filter(username__icontains=username)
         username_profile = []
-        username_profile_list = []
+        
 
         for users in username_object:
             username_profile.append(users.id)

@@ -541,9 +541,6 @@
       </div>
     </div>
 
-	<input type="hidden" value="{{user.username}}" name="follower" />
-	<input type="hidden" value="{{user_object.username}}" name="user" />
-
 	{% if user_object.username == user.username %}
 		<a href="/settings"><button type="button" class="w3-btn w3-border w3-round-large follow-button" style="background-color: transparent; color: white; position: absolute;"> <b>Account Settings</b> </button></a>
 	{% else%}
