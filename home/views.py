@@ -633,3 +633,7 @@ def delete_chat(request, chat_id):
 
     # Return a JSON response indicating successful deletion
     return JsonResponse({'message': f'Chat: {chat_id} - Deleted Successfully.'})
+
+@login_required(login_url='signin')
+def message_view(request):
+    return render(request, "chat.html")

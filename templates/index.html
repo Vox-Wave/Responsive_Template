@@ -13,33 +13,195 @@
         top: 0;
         z-index: 1000;
         width: 100%;
-        height: 80px;
+        height: auto;
         background-color: #f5f5f5;
+      }
+      .mobile-only{
+        display: block;
       }
       .desktop-only {
         display: none; /* Hide the element by default */
     }
+    .feed-card {
+      max-width: 90%;
+      position: relative; /* Required for positioning elements within */
+      margin-top: 20px;
+      background-color: white;
+      margin-left: 10px;
+    }
+    .caption{
+      font-size:25px;
+    }
+    .feed-card img {
+      width: 100%; /* Ensures image fills the card width */
+      height: auto;  /* Allows image height to adjust based on aspect ratio */
+      object-fit: cover;  /* Scales image to fill while maintaining aspect ratio */
+    }
+    .like-div{
+      height: 50px; 
+      max-width: 90%; 
+      padding-top: 8px; 
+      background-color: white;
+      margin-left:10px;
+    }
+    
     }
 
     /* Media query for screens between 601px and 900px */
     @media (min-width: 768px) and (max-width: 899px){
       /* Custom CSS rules for screens between 601px and 900px */
       /* Adjust styles for medium-sized screens here */
+      .navigation {
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 80px;
+        background-color: #f5f5f5;
+      }
+      .desktop-only {
+        display: block; /* Show the element on desktop view */
+      }
+      .mobile-only{
+        display: none;
+      }
+      .feed-card {
+        max-width: 60%;
+        position: relative; /* Required for positioning elements within */
+        margin-top: 20px;
+        background-color: white;
+        margin-left: 80px;
+      }
       
+      .feed-card img {
+        width: 100%; /* Ensures image fills the card width */
+        height: auto;  /* Allows image height to adjust based on aspect ratio */
+        object-fit: cover;  /* Scales image to fill while maintaining aspect ratio */
+      }
+      .caption{
+        font-size:30px;
+      }
+      .like-div{
+        height: 50px; 
+        max-width: 60%; 
+        padding-top: 8px; 
+        background-color: white;
+        margin-left:80px;
+      }
+      .desktop-only{
+        display: none;
+      }
+      .mobile-only{
+        display: block;
+      }
+      .hide{
+        display: none;
+      }
     }
 
     /* Media query for screens between 601px and 900px */
     @media (min-width: 900px) and (max-width: 1199px) {
       /* Custom CSS rules for screens between 601px and 900px */
       /* Adjust styles for medium-sized screens here */
+      .navigation {
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 80px;
+        background-color: #f5f5f5;
+      }
+      .desktop-only {
+        display: block; /* Show the element on desktop view */
+      }
+      .mobile-only{
+        display: none;
+      }
+      .feed-card {
+        max-width: 60%;
+        position: relative; /* Required for positioning elements within */
+        margin-top: 20px;
+        background-color: white;
+        margin-left: 80px;
+      }
       
+      .feed-card img {
+        width: 100%; /* Ensures image fills the card width */
+        height: auto;  /* Allows image height to adjust based on aspect ratio */
+        object-fit: cover;  /* Scales image to fill while maintaining aspect ratio */
+      }
+      .caption{
+        font-size:30px;
+      }
+      .like-div{
+        height: 50px; 
+        max-width: 60%; 
+        padding-top: 8px; 
+        background-color: white;
+        margin-left:80px;
+      }
+      .desktop-only{
+        display: none;
+      }
+      .mobile-only{
+        display: block;
+      }
+      .hide{
+        display: none;
+      }
     }
 
     /* Media query for screens larger than 901px */
     @media screen and ((min-width: 1200px) and (max-width: 1700px)) {
       /* Custom CSS rules for screens larger than 901px */
       /* Adjust styles for larger screens here */
+      .navigation {
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 80px;
+        background-color: #f5f5f5;
+      }
+      .desktop-only {
+        display: block; /* Show the element on desktop view */
+      }
+      .mobile-only{
+        display: none;
+      }
+      .feed-card {
+        max-width: 40%;
+        position: relative; /* Required for positioning elements within */
+        margin-top: 20px;
+        background-color: white;
+        margin-left: 80px;
+      }
       
+      .feed-card img {
+        width: 100%; /* Ensures image fills the card width */
+        height: auto;  /* Allows image height to adjust based on aspect ratio */
+        object-fit: cover;  /* Scales image to fill while maintaining aspect ratio */
+      }
+      .caption{
+        font-size:30px;
+      }
+      .like-div{
+        height: 50px; 
+        max-width: 40%; 
+        padding-top: 8px; 
+        background-color: white;
+        margin-left:80px;
+      }
+      .suggestion{
+        width: 40%;
+        height: auto;
+        top: 160px;
+        right: 60px;
+        z-index: 900;
+      }
+      .hide{
+        display: none;
+      }
     }
     /* Media query for screens larger than 901px */
     @media screen and (min-width: 1701px) {
@@ -55,6 +217,39 @@
       }
       .desktop-only {
         display: block; /* Show the element on desktop view */
+      }
+      .mobile-only{
+        display: none;
+      }
+      .feed-card {
+        max-width: 50%;
+        position: relative; /* Required for positioning elements within */
+        margin-top: 20px;
+        background-color: white;
+        margin-left: 100px;
+      }
+      
+      .feed-card img {
+        width: 100%; /* Ensures image fills the card width */
+        height: auto;  /* Allows image height to adjust based on aspect ratio */
+        object-fit: cover;  /* Scales image to fill while maintaining aspect ratio */
+      }
+      .caption{
+        font-size:40px;
+      }
+      .like-div{
+        height: 50px; 
+        max-width: 50%; 
+        padding-top: 8px; 
+        background-color: white;
+        margin-left:100px;
+      }
+      .suggestion{
+        width: 30%;
+        height: auto;
+        top: 200px;
+        right: 40px;
+        z-index: 1300;
       }
     }
     
@@ -80,6 +275,23 @@
         background-color: #f0f0f0;
     }
       
+    .addBtn{
+      position: fixed;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      background-color: darkcyan;
+      color: #fff;
+      border: none;
+      font-size: 1.4em;
+      cursor: pointer;
+      box-shadow: 5px 5px 40px #000;
+      outline: none;
+      bottom: 20%;
+      right: 20px;
+      z-index: 1900;
+      transform: translate(-50%, -50%);
+    }
     .dragBtn {
       position: fixed;
       height: 60px;
@@ -92,15 +304,16 @@
       cursor: pointer;
       box-shadow: 5px 5px 40px #000;
       outline: none;
-      bottom: 10%;
+      bottom: 5%;
       right: 20px;
+      z-index: 1900;
       transform: translate(-50%, -50%);
     }
 </style>
 {% endblock %}
 
 {% block mybody %}
-<div class="w3-container" style="padding: 0px; margin: 0px;">
+<div class="w3-container" style="padding: 0px; margin: 0px; position: relative;">
     <div class="navigation w3-container w3-white w3-card-4" style="padding-top: 15px; margin-bottom: 10px;">
         <div class="w3-container w3-cell">
            <a href="/" style="text-decoration: none;"><h4 class="w3-left"><b>VoxWave</b></h4></a>
@@ -154,12 +367,87 @@
         </div>
         
     </div>
-    <div class="w3-container" style="height: auto; margin-top: 120px;">
-        <div class="w3-card-4" style="height: 300px; width: 100%; background-color: white; margin-top: 20px;">
+    <div class="w3-container" style="height: auto; margin-top: 100px;">
+      {% for post in posts reversed %}
+        <div class="w3-card-4 w3-round-large feed-card w3-display-container" style="background-color: white; margin-top: 40px;">
+          <img src="{{post.image.url}}" class="w3-round-large" alt="Feed">
+          <div class="w3-display-topleft w3-container" style="padding-top: 10px; padding-left: 20px;"><b><a href="/profile/{{post.user}}" style="text-decoration: none; color: white; text-shadow:1px 1px 0 #444"><h4> @{{post.user}} </h4></a></b></div>
+          <div class="w3-display-bottomleft w3-container" style="padding-bottom: 20px; padding-left: 20px;"><h3 class="caption" style="text-shadow:1px 1px 0 #444; color: white;">{{post.caption}}</h3></div>  
+          </div>
+          <div class="w3-container w3-round-xlarge like-div">
+          <div class="w3-container w3-cell w3-left">
+              <a href="/like-post?post_id={{post.id}}" style="text-decoration: none; cursor: pointer;">
+                      <i class="fa fa-thumbs-up" aria-hidden="true" style="font-size: 30px;"></i>
+              </a>    
+          </div>
+          <div class="w3-container w3-cell w3-right" style="padding-top: 8px;">
+            <b>
+            {% if post.no_of_likes == 0%}
+                No Likes
+            {% elif post.no_of_likes == 1 %}
+                Liked by {{post.no_of_likes}} person
+            {%else%}
+                Liked by {{post.no_of_likes}} people
+            {% endif %}
+            </b>
+          </div> 
         </div>
+        {% endfor %}
     </div>
-    <button type="button" class="dragBtn"><i class="fa fa-comments" aria-hidden="true"></i></button>
-      
+    <button type="button" onclick="chatPage()" class="dragBtn"><i class="fa fa-comments" aria-hidden="true"></i></button>
+    <button type="button" onclick="document.getElementById('suggestion').style.display='block'" class="addBtn mobile-only"><i class="fa fa-address-book-o" aria-hidden="true"></i></button>
+
+    <div id="suggestion" class="w3-modal"style="z-index: 1600;">
+      <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-large" style="width: 70%; height: auto;">
+        <header class="w3-container"> 
+          <span onclick="document.getElementById('suggestion').style.display='none'" 
+          class="w3-button w3-display-topright w3-round-xlarge">&times;</span>
+          <h3 class="w3-center"><b>Users You Can Follow</b></h3>
+        </header>
+        {% for suggestion in suggestions_username_profile_list %}
+      <div class="w3-container w3-hover-shadow w3-round-large" >
+        <div class="w3-container w3-cell w3-left" style="padding-left: 20px; padding-top:20px;">
+          <a href="/profile/{{suggestion.user}}">
+            <img src="{{suggestion.profileimg.url}}" class="w3-circle" style="width: 40px; height:40px;">
+          </a>
+        </div>
+        <div class="w3-container w3-cell w3-left" style="padding-left: 30px;">
+          <a href="/profile/{{suggestion.user}}" style="text-decoration: none;">
+          <p class="capitalize" style="font-size: 15px;">{{suggestion.user}}</p>
+          <p class="capitalize" style="font-size: 15px;">{{suggestion.bio}}</p>
+          </a>
+        </div>
+        
+        <br><br>
+      </div>
+      {% endfor %}
+      </div>
+    </div>
+
+    <div class="w3-container w3-card-4 w3-round-xlarge desktop-only suggestion" style="background-color: white; position: fixed;">
+      <div class="w3-container w3-center" style="height: 80px;">
+        <h2><b>Users You Can Follow</b></h2>
+      </div>
+      {% for suggestion in suggestions_username_profile_list %}
+      <div class="w3-container w3-hover-shadow w3-round-large">
+        <div class="w3-container w3-cell w3-left" style="padding-left: 20px; padding-top:20px;">
+          <a href="/profile/{{suggestion.user}}">
+            <img src="{{suggestion.profileimg.url}}" class="w3-circle" style="width: 50px; height:50px;">
+          </a>
+        </div>
+        <div class="w3-container w3-cell w3-left">
+          <p class="capitalize">{{suggestion.user}}</p>
+          <p class="capitalize">{{suggestion.bio}}</p>
+        </div>
+        <div class="w3-container w3-cell w3-right hide" style="padding-right: 20px; padding-top:20px;">
+          <a href="/profile/{{suggestion.user}}"><button type="button" class="w3-btn w3-border w3-round-large " style="background-color: transparent; color: #cccccc;"> <b>View User</b> </button></a>
+        </div>
+        <br><br>
+      </div>
+      {% endfor %}
+    </div>
+
+
 </div>
 {% endblock %}
     
@@ -188,68 +476,28 @@
     });
 
 
-    const dragBtns = document.querySelectorAll(".dragBtn");
+    // Get the modal
+    var modal = document.getElementById('upload');
 
-    dragBtns.forEach((dragBtn) => {
-      let isDragging = false;
-      let startX, startY, offsetX, offsetY;
-      let touchTimeout; // Variable to hold timeout ID for touch events
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+     // Get the modal
+     var modal1 = document.getElementById('suggestion');
 
-      const startDrag = (e) => {
-        e.preventDefault(); // Prevent default behavior of touch events
-
-        // Set a small delay before considering it as dragging to prevent automatic movement on touch screens
-        touchTimeout = setTimeout(() => {
-          isDragging = true;
-          const rect = dragBtn.getBoundingClientRect();
-          startX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
-          startY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
-          offsetX = startX - rect.left;
-          offsetY = startY - rect.top;
-        }, 50); // Adjust the delay as needed
-      };
-
-      const drag = (e) => {
-        if (!isDragging) return;
-        e.preventDefault(); // Prevent default behavior of touch events
-        const x = e.type === "touchmove" ? e.touches[0].clientX - offsetX : e.clientX - offsetX;
-        const y = e.type === "touchmove" ? e.touches[0].clientY - offsetY : e.clientY - offsetY;
-        dragBtn.style.left = x + "px";
-        dragBtn.style.top = y + "px";
-      };
-
-      const stopDrag = () => {
-        clearTimeout(touchTimeout); // Clear the touch timeout
-        isDragging = false;
-      };
-
-      dragBtn.addEventListener("mousedown", startDrag);
-      window.addEventListener("mousemove", drag);
-      window.addEventListener("mouseup", stopDrag);
-
-      // Add click event listener to handle button click (not drag)
-      dragBtn.addEventListener("click", (e) => {
-        e.preventDefault(); // Prevent default behavior if not dragged
-        if (!isDragging) {
-          window.location.href = "/settings"; // Redirect to "/settings" on click
-        }
-      });
-      
-      
-      
-    });
-    const links = document.querySelectorAll("a");
-
-// Get the modal
-var modal = document.getElementById('upload');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
+     // When the user clicks anywhere outside of the modal, close it
+     window.onclick = function(event) {
+       if (event.target == modal1) {
+         modal1.style.display = "none";
+       }
+     }
+    function chatPage() {
+      // Redirect to "/settings" on click
+      window.location.href = "/message_page";
+    }
 
 </script> 
 {% endblock %}

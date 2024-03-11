@@ -10,92 +10,20 @@
     @media (max-width: 767px) {
       /* Custom CSS rules for screens smaller than 600px */
       /* Adjust styles for smaller screens here */
-      .banner-container{
-        padding-left: 0px;
-        padding-right: 0px;
-        height: 250px;
-      }
-      .username{
-        top: 240px;
-        left: 170px;
-        z-index: 4;
-        font-size: 25px;
-      }
-      .banner-image{
-        width: 100%;
-        height: 100%;
-      }
       .profile-image{
-        width: 100px;
-        height: 100px;
-      }
-      .bio{
-        top: 140px;
-        left: 50px;
-        font-size: 25px;
-      }
-      .profile-container{
-        top: 180px; 
-        left: 140px;
-        z-index: 1;
-      }
-      .home-button{
+        width: 150px;
+        height: 150px;
+        padding: 6px;
         position: absolute;
-        top: 20px; 
-        left: 30px;
-        width: 80px;
-      }
-      .post-count{
-        top: 20px;
-        left: 300px;
-      }
-      .follower-count{
-        top: 100px;
-        left: 30px;
-      }
-      .following-count{
-        top: 100px;
-        left: 280px;
-      }
-      .follow-button{
-        top: 190px;
-        left: 280px;
-        width: 140px;
-      }
-      .post-card {
-        margin-left: 20px;
-        margin-right: 10px;
-        margin-top: 10px;
-        margin-bottom: 50px;
-        display: inline-block; /* Ensure the card adjusts to fit the image */
-        max-width: calc(100% - 60px); /* Set maximum width of the card */
-      }
-      .delete-button{
-        top: 10px;
+        background-color: white;
+        top:250px;
         right: 10px;
-        color: red; 
-        position: absolute; 
-        border: none; 
-        background-color: transparent;
       }
-      .post-card img {
-        width: 100%; /* Ensure the image fills the card width */
-        height: auto; /* Maintain aspect ratio */
+      .mobile-only{
+        display: block;
       }
-      .name-card{
-        margin-top: 20px;
-        margin-left: 60px;
-        width:80%;
-        height: 40px;
-        padding-top: 5px;
-        font-size: 18px;
-        padding-left: 60px;
-      }
-      .modal-card{
-        width: 30%;
-      }
-      .modal-names{
-        padding-left: 80px;
+      .desktop-only{
+        display: none;
       }
     }
 
@@ -189,7 +117,9 @@
       .modal-names{
         padding-left: 80px;
       }
-      
+      .mobile-only{
+        display: none;
+      }
     }
 
     /* Media query for screens between 601px and 900px */
@@ -282,6 +212,9 @@
       .modal-names{
         padding-left: 80px;
       }
+      .mobile-only{
+        display: none;
+      }
     }
 
     /* Media query for screens larger than 901px */
@@ -373,6 +306,9 @@
       .modal-names{
         padding-left: 80px;
       }
+      .mobile-only{
+        display: none;
+      }
     }
     /* Media query for screens larger than 901px */
     @media screen and (min-width: 1701px) {
@@ -463,12 +399,131 @@
       .modal-names{
         padding-left: 80px;
       }
+      .mobile-only{
+        display: none;
+      }
+      .desktop-only{
+        display: block;
+      }
     }
 </style>
 {% endblock %}
 
 {% block mybody %}
-<div class="w3-container w3-animate-opacity" style="padding-left: 0px; padding-right: 0px; margin-right: 0px; margin-bottom: 0px; position: relative;">
+<div class="w3-container" style="position: fixed; top:0px; left:0px; padding: 0px; z-index: 1600;">
+<div class="w3-container w3-animate-opacity mobile-only" style="padding-left: 0px; padding-right: 0px; margin-right: 0px; margin-bottom: 0px; position: relative;">
+  <div class="w3-container w3-card-4 banner-container" style="padding: 0px; height: 440px; background-color: white; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;">
+    <img src="{% static 'home/images/mobile_banner.jpeg' %}"  style="height: 280px; width: 100%; " class="banner-image w3-border" alt="Banner" />
+  </div>
+  <img src="{{user_profile.profileimg.url}}"  class="profile-image w3-border w3-circle w3-card-4" alt="Profile Pic" />
+  <div class="username w3-text-black capitalize w3-center" style="position: absolute; top: 280px; left: 40px; font-size: 40px;"><b><span>{{user_profile.user.username}}</span></b></div>
+  <div class="w3-container" style="position: absolute; height: 100px; width:300px;padding: 0px; top:340px;">
+  <div class="w3-container w3-cell w3-center" style="height: 100%;width: 100%;padding-top: 20px;font-size: 16px; ">
+    {% if user_followers == 0 or user_followers == 1 %}
+		<button type="button" onclick="document.getElementById('follower').style.display='block'" class="w3-btn w3-round-large " style="background-color: transparent; color: black; padding: 0px; margin-left: 0px;"><b>{{user_followers}}<br>Follower</b></button>
+	{% else %}
+        <button type="button" onclick="document.getElementById('follower').style.display='block'" class="w3-btn w3-round-large " style="background-color: transparent; color: black;  padding: 0px; margin-left: 0px;"><b>{{user_followers}}<br>Followers</b></button>
+    {% endif %}
+  </div>
+  <div class="w3-container w3-cell w3-center" style="height: 100%;width: 100%;padding-top: 20px;font-size: 16px; ">
+    {% if user_post_length == 0 %}
+	    <b> No<br>Posts</b>
+	{% elif user_post_length == 1 %}
+		<b>{{user_post_length}}<br>Post</b>
+	{% else %}
+		<b>{{user_post_length}}<br>Posts</b>
+	{% endif %}
+    
+  </div>
+  <div class="w3-container w3-cell w3-center" style="height: 100%;width: 100%;padding-top: 20px;font-size: 16px; ">
+    <button type="button" onclick="document.getElementById('following').style.display='block'" class="w3-btn w3-round-large following-count" style="background-color: transparent; color: black; padding: 0px; margin-left: 0px;"><b>{{user_following}}<br>Following</b></button>
+
+  </div>
+  
+
+
+</div>
+<a href="/"><button type="button" class="w3-button w3-circle w3-round-large" style="background-color: white; color: grey; position: absolute; top:10px;border-bottom-left-radius: 50px;border-top-left-radius: 50px;border-bottom-right-radius: 50px;border-top-right-radius: 50px; left:20px;z-index: 1000; font-size: 40px;"> <i class="fa fa-home" aria-hidden="true"></i></button></a>
+<a href="/settings"><button type="button" class="w3-button w3-circle w3-round-large" style="background-color: white; color: grey; position: absolute; top:150px;border-bottom-left-radius: 50px;border-top-left-radius: 50px;border-bottom-right-radius: 50px;border-top-right-radius: 50px; left:20px;z-index: 1000; font-size: 40px;"> <i class="fa fa-gear fa-spin" ></i></button></a>
+</div>
+</div>
+  <div class="w3-container" style="margin-top: 480px; margin-left: 20px; width: 90%;">
+    {% for post in user_posts %}
+    <div class="w3-card-4 post-card w3-round-xlarge" style="background-color: #f2f2f2; position: relative; margin-bottom: 10px; margin-top: 20px;">
+      <img src="{{ post.image.url }}" alt="User-Post" class="w3-round-xlarge" style="width:100%;">
+      <div class="w3-container" style="height:auto;margin-bottom: 20px;">
+        <h3><b>{{ post.caption }}</b></h3>
+      </div>
+      {% if user_object.username == user.username %}
+      <div class="w3-container" style="position: absolute; top:10px; right:10px;">
+        <button type="button" onclick="delete_post('{{user_profile.user.username}}', '{{ post.id }}')" class="delete-button w3-btn"> <b><i class="fa fa-trash" style="font-size: 25px;"></i></b> </button>
+      </div>
+      {% endif %}
+    </div>
+    <div class="w3-container">
+    </div>
+    {% endfor %}
+  </div>
+
+<div id="follower" class="w3-modal">
+  <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-xlarge modal-card">
+    <header class="w3-container w3-center"> 
+      <span onclick="document.getElementById('follower').style.display='none'" 
+      class="w3-button w3-display-topright">&times;</span>
+      <h2><b>FOLLOWER LIST</b></h2>
+    </header>
+    <div class="w3-container">
+      {% for follower in follower_list %}
+      
+      <div class="w3-hover-shadow name-card">
+        <div class="w3-container">
+          <div class="w3-container w3-cell w3-center">
+        <a href="/profile/{{follower.user}}" style="text-decoration:none;">
+         <img class="w3-circle user-img" src="{{follower.profileimg.url}}" alt="Follower Avatar" style="width:30px; height: 30px;" /></a>
+        </div>
+        <div class="w3-container w3-cell w3-center">
+         <a href="/profile/{{follower.user}}" style="text-decoration:none;">
+            <span class="modal-names capitalize"><b>{{follower.user}}</b></span>
+            </a>
+          </div>
+          </div>
+      </div>
+      {% endfor %}
+      <br><br>
+    </div>
+  </div>
+</div>
+
+<div id="following" class="w3-modal">
+  <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-xlarge modal-card">
+    <header class="w3-container w3-center"> 
+      <span onclick="document.getElementById('following').style.display='none'" 
+      class="w3-button w3-display-topright">&times;</span>
+      <h2><b>FOLLOWING LIST</b></h2>
+    </header>
+    <div class="w3-container">
+      {% for following in following_list %}
+      
+      <div class=" w3-hover-shadow ">
+        <div class="w3-container">
+        <div class="w3-container w3-cell w3-center">
+        <a href="/profile/{{following.user}}" style="text-decoration:none;"> 
+        <img class="w3-circle user-img" src="{{following.profileimg.url}}" alt="Follower Avatar" style="width:30px; height: 30px;" /></a>
+        </div>
+        <div class="w3-container w3-cell w3-center">
+        <a href="/profile/{{following.user}}" style="text-decoration:none;"> 
+            <span class="modal-names capitalize"><b>{{following.user}}</b></span>
+          </a>
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+      <br><br>
+    </div>
+  </div>
+</div>
+
+<div class="w3-container w3-animate-opacity mobile-only desktop-only" style="padding-left: 0px; padding-right: 0px; margin-right: 0px; margin-bottom: 0px; position: relative;">
     <div class="w3-container w3-card-4 banner-container" >
         <img src="{% static 'home/images/profile_banner1.jpg' %}"  class="banner-image w3-border" alt="Banner" />
     </div>  
