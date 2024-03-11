@@ -9,6 +9,9 @@
       /* Custom CSS rules for screens smaller than 600px */
       /* Adjust styles for smaller screens here */
       .navigation {
+        position: fixed;
+        top: 0;
+        z-index: 1000;
         width: 100%;
         height: 80px;
         background-color: #f5f5f5;
@@ -43,6 +46,9 @@
       /* Custom CSS rules for screens larger than 901px */
       /* Adjust styles for larger screens here */
       .navigation {
+        position: fixed;
+        top: 0;
+        z-index: 1000;
         width: 100%;
         height: 80px;
         background-color: #f5f5f5;
@@ -74,12 +80,28 @@
         background-color: #f0f0f0;
     }
       
+    .dragBtn {
+      position: fixed;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      background-color: darkcyan;
+      color: #fff;
+      border: none;
+      font-size: 1.4em;
+      cursor: pointer;
+      box-shadow: 5px 5px 40px #000;
+      outline: none;
+      bottom: 10%;
+      right: 20px;
+      transform: translate(-50%, -50%);
+    }
 </style>
 {% endblock %}
 
 {% block mybody %}
 <div class="w3-container" style="padding: 0px; margin: 0px;">
-    <div class="navigation w3-container w3-white w3-card-4" style="padding-top: 15px;">
+    <div class="navigation w3-container w3-white w3-card-4" style="padding-top: 15px; margin-bottom: 10px;">
         <div class="w3-container w3-cell">
            <a href="/" style="text-decoration: none;"><h4 class="w3-left"><b>VoxWave</b></h4></a>
         </div>
@@ -90,18 +112,54 @@
                     <img src="{{user_profile.profileimg.url}}" class="w3-circle dropdown-toggle" style="width: 40px; height:40px; cursor: pointer;" alt="">
                     <div class="dropdown-menu w3-card-4 w3-round-large">
                         <!-- Dropdown content here -->
-                        <a href="#">Item 1</a>
-                        <a href="#">Item 2</a>
-                        <a href="#">Item 3</a>
+                        <a href="/profile/{{user.username}}">Your Profile</a>
+                        <a href="/settings">Account Settings</a>
+                        <a href="/logout">Logout</a>
                     </div>
                 </div>
             </div>
+            
+              <button type="button" onclick="document.getElementById('upload').style.display='block'" class="w3-btn w3-border w3-round-large home-button w3-cell w3-right" style="background-color: transparent; color: Black; margin-left: 20px; margin-right: 10px;"> <b>Upload</b> </button>
+              <div id="upload" class="w3-modal">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-large">
+                  <header class="w3-container w3-teal"> 
+                    <span onclick="document.getElementById('upload').style.display='none'" 
+                    class="w3-button w3-display-topright w3-round-xlarge">&times;</span>
+                    <h2 class="w3-center">Share Your Moments</h2>
+                  </header>
+                  <form action="upload" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                  <div class="w3-container w3-round-xlarge" style="padding-left: 30px;">
+                    <p>Choose your Moments to share with others.</p>
+                    <p class="w3-opacity">Only Image File can be uploaded....</p>
+                    <p><b>Pic to Share:</b><br>&nbsp;&nbsp;&nbsp;<input type="file" class="image-input" name="image_upload" style="padding-right:20px;"></p>
+                    <div class="w3-container">
+                      <br>
+                      <label class="w3-left labels" for="description"><b>Caption:</b></label>&nbsp;&nbsp;  
+                      <textarea id="description" name="caption" placeholder="Caption" class="textarea-input" rows="3" style="padding-left: 10px; padding-top: 10px;"></textarea>
+                    </div>
+                  </div>
+                  <footer class="w3-container">
+                    <button type="submit" class="w3-btn w3-border w3-round-large w3-right" style="background-color: #cccccc; color: white;"> Upload </button>
+                    <br><br>
+                  </footer>
+                </form>
+                </div>
+              </div>
+           
             <div class="w3-container w3-cell w3-right desktop-only" style="padding-right: 5px;">
                 <h5 class="w3-opacity" style="text-shadow:1px 1px 0 #444">Welcome, {{user.username}}</h5>
             </div>
+            
         </div>
         
     </div>
+    <div class="w3-container" style="height: auto; margin-top: 120px;">
+        <div class="w3-card-4" style="height: 300px; width: 100%; background-color: white; margin-top: 20px;">
+        </div>
+    </div>
+    <button type="button" class="dragBtn"><i class="fa fa-comments" aria-hidden="true"></i></button>
+      
 </div>
 {% endblock %}
     
@@ -128,5 +186,70 @@
             });
         });
     });
-</script>
+
+
+    const dragBtns = document.querySelectorAll(".dragBtn");
+
+    dragBtns.forEach((dragBtn) => {
+      let isDragging = false;
+      let startX, startY, offsetX, offsetY;
+      let touchTimeout; // Variable to hold timeout ID for touch events
+
+      const startDrag = (e) => {
+        e.preventDefault(); // Prevent default behavior of touch events
+
+        // Set a small delay before considering it as dragging to prevent automatic movement on touch screens
+        touchTimeout = setTimeout(() => {
+          isDragging = true;
+          const rect = dragBtn.getBoundingClientRect();
+          startX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+          startY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+          offsetX = startX - rect.left;
+          offsetY = startY - rect.top;
+        }, 50); // Adjust the delay as needed
+      };
+
+      const drag = (e) => {
+        if (!isDragging) return;
+        e.preventDefault(); // Prevent default behavior of touch events
+        const x = e.type === "touchmove" ? e.touches[0].clientX - offsetX : e.clientX - offsetX;
+        const y = e.type === "touchmove" ? e.touches[0].clientY - offsetY : e.clientY - offsetY;
+        dragBtn.style.left = x + "px";
+        dragBtn.style.top = y + "px";
+      };
+
+      const stopDrag = () => {
+        clearTimeout(touchTimeout); // Clear the touch timeout
+        isDragging = false;
+      };
+
+      dragBtn.addEventListener("mousedown", startDrag);
+      window.addEventListener("mousemove", drag);
+      window.addEventListener("mouseup", stopDrag);
+
+      // Add click event listener to handle button click (not drag)
+      dragBtn.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent default behavior if not dragged
+        if (!isDragging) {
+          window.location.href = "/settings"; // Redirect to "/settings" on click
+        }
+      });
+      
+      
+      
+    });
+    const links = document.querySelectorAll("a");
+
+// Get the modal
+var modal = document.getElementById('upload');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+</script> 
 {% endblock %}
