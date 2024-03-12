@@ -4,6 +4,12 @@
 
 {% block mycss %}
 <style>
+  body {
+    -webkit-user-select: none; /* Chrome, Safari, Opera */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
     /* Media query for screens smaller than 600px */
     @media (max-width: 767px) {
       /* Custom CSS rules for screens smaller than 600px */
@@ -314,7 +320,7 @@
 
 {% block mybody %}
 <div class="w3-container" style="padding: 0px; margin: 0px; position: relative;">
-    <div class="navigation w3-container w3-white w3-card-4" style="padding-top: 15px; margin-bottom: 10px;">
+    <div class="navigation w3-container w3-white w3-card-4" style="padding-top: 15px; margin-bottom: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">
         <div class="w3-container w3-cell">
            <a href="/" style="text-decoration: none;"><h4 class="w3-left"><b>VoxWave</b></h4></a>
         </div>
@@ -333,11 +339,11 @@
             </div>
             
               <button type="button" onclick="document.getElementById('upload').style.display='block'" class="w3-btn w3-border w3-round-large home-button w3-cell w3-right" style="background-color: transparent; color: Black; margin-left: 20px; margin-right: 10px;"> <b>Upload</b> </button>
-              <div id="upload" class="w3-modal">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-large">
-                  <header class="w3-container w3-teal"> 
+              <div id="upload" class="w3-modal" style="z-index: 19000;">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-large" style="width: 40%; margin-left: 20px;">
+                  <header class="w3-container w3-teal w3-round-large"> 
                     <span onclick="document.getElementById('upload').style.display='none'" 
-                    class="w3-button w3-display-topright w3-round-xlarge">&times;</span>
+                    class="w3-button w3-display-topright w3-round-xlarge" style="font-size: 25px;">&times;</span>
                     <h2 class="w3-center">Share Your Moments</h2>
                   </header>
                   <form action="upload" method="POST" enctype="multipart/form-data">
@@ -374,7 +380,7 @@
           <div class="w3-display-topleft w3-container" style="padding-top: 10px; padding-left: 20px;"><b><a href="/profile/{{post.user}}" style="text-decoration: none; color: white; text-shadow:1px 1px 0 #444"><h4> @{{post.user}} </h4></a></b></div>
           <div class="w3-display-bottomleft w3-container" style="padding-bottom: 20px; padding-left: 20px;"><h3 class="caption" style="text-shadow:1px 1px 0 #444; color: white;">{{post.caption}}</h3></div>  
           </div>
-          <div class="w3-container w3-round-xlarge like-div">
+          <div class="w3-container like-div" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;border-top-right-radius: 5px; border-top-left-radius: 5px;">
           <div class="w3-container w3-cell w3-left">
               <a href="/like-post?post_id={{post.id}}" style="text-decoration: none; cursor: pointer;">
                       <i class="fa fa-thumbs-up" aria-hidden="true" style="font-size: 30px;"></i>
@@ -394,14 +400,14 @@
         </div>
         {% endfor %}
     </div>
-    <button type="button" onclick="chatPage()" class="dragBtn"><i class="fa fa-comments" aria-hidden="true"></i></button>
-    <button type="button" onclick="document.getElementById('suggestion').style.display='block'" class="addBtn mobile-only"><i class="fa fa-address-book-o" aria-hidden="true"></i></button>
+    <button type="button" onclick="chatPage()" class="dragBtn w3-btn"><i class="fa fa-comments" aria-hidden="true"></i></button>
+    <button type="button" onclick="document.getElementById('suggestion').style.display='block'" class="addBtn mobile-only w3-btn"><i class="fa fa-address-book-o" aria-hidden="true"></i></button>
 
     <div id="suggestion" class="w3-modal"style="z-index: 1600;">
       <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-large" style="width: 70%; height: auto;">
         <header class="w3-container"> 
           <span onclick="document.getElementById('suggestion').style.display='none'" 
-          class="w3-button w3-display-topright w3-round-xlarge">&times;</span>
+          class="w3-button w3-display-topright w3-round-xlarge" style="font-size: 25px;">&times;</span>
           <h3 class="w3-center"><b>Users You Can Follow</b></h3>
         </header>
         {% for suggestion in suggestions_username_profile_list %}
@@ -425,7 +431,7 @@
     </div>
 
     <div class="w3-container w3-card-4 w3-round-xlarge desktop-only suggestion" style="background-color: white; position: fixed;">
-      <div class="w3-container w3-center" style="height: 80px;">
+      <div class="w3-container w3-center enable-selection" style="height: 80px;">
         <h2><b>Users You Can Follow</b></h2>
       </div>
       {% for suggestion in suggestions_username_profile_list %}
@@ -435,9 +441,11 @@
             <img src="{{suggestion.profileimg.url}}" class="w3-circle" style="width: 50px; height:50px;">
           </a>
         </div>
-        <div class="w3-container w3-cell w3-left">
+        <div class="w3-container w3-cell w3-left ">
+          <a href="/profile/{{suggestion.user}}" style="text-decoration: none;">
           <p class="capitalize">{{suggestion.user}}</p>
           <p class="capitalize">{{suggestion.bio}}</p>
+          </a>
         </div>
         <div class="w3-container w3-cell w3-right hide" style="padding-right: 20px; padding-top:20px;">
           <a href="/profile/{{suggestion.user}}"><button type="button" class="w3-btn w3-border w3-round-large " style="background-color: transparent; color: #cccccc;"> <b>View User</b> </button></a>

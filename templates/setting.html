@@ -4,6 +4,12 @@
 
 {% block mycss %}
 <style>
+  body {
+    -webkit-user-select: none; /* Chrome, Safari, Opera */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
     /* Media query for screens smaller than 600px */
     @media (max-width: 767px) {
       /* Custom CSS rules for screens smaller than 600px */
@@ -319,7 +325,7 @@
             <div class="w3-modal-content w3-card-4 modal-card w3-animate-zoom w3-round-xlarge">
               <header class="w3-container w3-teal w3-round"> 
                 <span onclick="document.getElementById('id01').style.display='none'" 
-                class="w3-button w3-display-topright w3-round">&times;</span>
+                class="w3-button w3-display-topright w3-round" style="font-size: 25px;">&times;</span>
                 <h2 class="w3-center"><b>Edit Profile</b></h2>
               </header>
               <div class="w3-container">
