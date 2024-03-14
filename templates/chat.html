@@ -4,96 +4,48 @@
 
 {% block mycss %}
 <style>
-    /* Style for mobile view */
-    @media screen and (max-width: 600px) {
-      .contacts {
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        z-index: 1;
-        background-color: #f1f1f1;
-        overflow-y: auto;
-      }
-      .message-area {
-        display: none;
-        z-index: 2;
-      }
+    /* Media query for screens smaller than 600px */
+    @media (max-width: 767px) {
+      /* Custom CSS rules for screens smaller than 600px */
+      /* Adjust styles for smaller screens here */
+      
     }
-    /* Style for desktop view */
-    @media screen and (min-width: 601px) {
-      .contacts {
-        float: left;
-        width: 25%;
-        height: 100%;
-        overflow-y: auto;
-      }
-      .message-area {
-        float: left;
-        width: 75%;
-        height: 100%;
-        overflow-y: auto;
-      }
+
+    /* Media query for screens between 601px and 900px */
+    @media (min-width: 768px) and (max-width: 899px){
+      /* Custom CSS rules for screens between 601px and 900px */
+      /* Adjust styles for medium-sized screens here */
+      
     }
-  </style>
+
+    /* Media query for screens between 601px and 900px */
+    @media (min-width: 900px) and (max-width: 1199px) {
+      /* Custom CSS rules for screens between 601px and 900px */
+      /* Adjust styles for medium-sized screens here */
+      
+    }
+
+    /* Media query for screens larger than 901px */
+    @media screen and ((min-width: 1200px) and (max-width: 1700px)) {
+      /* Custom CSS rules for screens larger than 901px */
+      /* Adjust styles for larger screens here */
+      
+    }
+    /* Media query for screens larger than 901px */
+    @media screen and (min-width: 1701px) {
+      /* Custom CSS rules for screens larger than 901px */
+      /* Adjust styles for larger screens here */
+      
+    }
+</style>
 {% endblock %}
 
 {% block mybody %}
-<!-- Desktop view -->
-<div class="w3-container w3-hide-small" style="margin-top: 50px;">
-    <div class="w3-row">
-      <div class="w3-col contacts">
-        <!-- Contacts section -->
-        <h2>Contacts</h2>
-        <ul class="w3-ul">
-          <li>Contact 1</li>
-          <li>Contact 2</li>
-          <li>Contact 3</li>
-          <!-- Add more contacts as needed -->
-        </ul>
-      </div>
-      <div class="w3-col message-area">
-        <!-- Message display area -->
-        <h2>Messages</h2>
-        <div class="w3-container">
-          <!-- Messages will be displayed here -->
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Mobile view -->
-  <div class="w3-container w3-hide-large w3-hide-medium" style="margin-top: 50px;">
-    <div class="contacts">
-      <!-- Contacts section -->
-      <h2>Contacts</h2>
-      <ul class="w3-ul">
-        <li>Contact 1</li>
-        <li>Contact 2</li>
-        <li>Contact 3</li>
-        <!-- Add more contacts as needed -->
-      </ul>
-    </div>
-    <div class="message-area">
-      <!-- Message display area -->
-      <h2>Messages</h2>
-      <div class="w3-container">
-        <!-- Messages will be displayed here -->
-      </div>
-    </div>
-  </div>
+
 {% endblock %}
     
 {% block myscript %}
 <script>
-    // Toggle visibility of message area in mobile view
-    function toggleMessageArea() {
-      var messageArea = document.querySelector('.message-area');
-      if (messageArea.style.display === 'none') {
-        messageArea.style.display = 'block';
-      } else {
-        messageArea.style.display = 'none';
-      }
-    }
+    
   </script>
 {% endblock %}

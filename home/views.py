@@ -29,13 +29,9 @@ def index(request):
 
     user_following_list = []
     feed = []
-    follower_list =[]
-    username_follower = []
-    username_follower_list = []
 
     user_following = FollowersCount.objects.filter(follower=request.user.username)
     
-
     for users in user_following:
         user_following_list.append(users.user)
     for usernames in user_following_list:
@@ -67,77 +63,12 @@ def index(request):
 
     suggestions_username_profile_list = list(chain(*username_profile_list))
 
-    username_following =[]
-    user_following_lists = []
-    for followers in user_following_all:
-        username_following.append(followers.id)
-    for follower_id in  username_following:
-        profile_list = Profile.objects.filter(id_user=follower_id)
-        user_following_lists.append(profile_list)
-    user_following_list = list(chain(*user_following_lists))
-
-    user_follower = FollowersCount.objects.filter(user=request.user.username)
-    for follow in user_follower:
-        user_lists = User.objects.get(username=follow.follower)
-        follower_list.append(user_lists)
-    # print(follower_list)
-    follower_list_all = [x for x in list(follower_list) if (x in list(user_following_all))]
-    # print(follower_list_all)
-    for users in follower_list_all:
-        username_follower.append(users.id)
-    for ids in username_follower:
-        profile_lists = Profile.objects.filter(id_user=ids)
-        username_follower_list.append(profile_lists)
-
-    user_follower_list = list(chain(*username_follower_list))
-    # print(user_follower_list)
-
-    chat_log = ChatLog.objects.filter(Q(chat_from__username=request.user) | Q(chat_to__username=request.user)).select_related('chat_from', 'chat_to').order_by('-created_at')
-    # print(chat_log)
-    if chat_log != None:
-        friend_usernames = []
-        for chat in chat_log:
-            if chat.chat_from != request.user:
-                friend_usernames.append(chat.chat_from)
-            elif chat.chat_to != request.user:
-                friend_usernames.append(chat.chat_to)
-        # print(friend_usernames)
-        # Create a mapping between usernames and profiles
-        username_profile_mapping = {profile.user.username: profile for profile in user_follower_list}
-
-        processed_usernames = set()
-
-        # Initialize the sorted list
-        sorted_user_follower_list = []
-
-        # Iterate through friend_usernames
-        for user in friend_usernames:
-            # Check if the profile corresponding to the username is in user_follower_list and not already processed
-            if user.username in username_profile_mapping and user.username not in processed_usernames:
-                # Append the profile to sorted_user_follower_list
-                sorted_user_follower_list.append(username_profile_mapping[user.username])
-                # Add the username to the processed set
-                processed_usernames.add(user.username)
-
-        # Append profiles from user_follower_list that are not present in friend_usernames
-        for profile in user_follower_list:
-            if profile.user.username not in processed_usernames:
-                sorted_user_follower_list.append(profile)
-                processed_usernames.add(profile.user.username)
-
-        # print(sorted_user_follower_list)
-
-    # print(feed_list)
-    # posts = Post.objects.all()
-    # print(request.user)
-
     return render(request, 
                   "index.html", 
                   {
                       'user_profile': user_profile, 
                       'posts': feed_list, 
-                      "suggestions_username_profile_list": suggestions_username_profile_list[:4], 
-                      "user_following_list": sorted_user_follower_list,
+                      "suggestions_username_profile_list": suggestions_username_profile_list[:4],
                     })
 
 @login_required(login_url="signin")
@@ -636,4 +567,64 @@ def delete_chat(request, chat_id):
 
 @login_required(login_url='signin')
 def message_view(request):
-    return render(request, "chat.html")
+    user_following_list = []
+    user_followers_list = []
+    friends = []
+    friends_list = []
+    user_following = FollowersCount.objects.filter(follower=request.user.username)
+    user_followers = FollowersCount.objects.filter(user=request.user.username)
+
+    for users in user_following:
+        user_following_list.append(users.user)
+
+    for follower in user_followers:
+        user_followers_list.append(follower.follower)
+
+    # Find common usernames
+    friends_username = [username for username in user_following_list if username in user_followers_list]
+
+    for usernames in friends_username:
+        user = User.objects.get(username=usernames)  # Assuming username is unique
+        friend_profile = Profile.objects.get(user=user)
+        friends_list.append(friend_profile)
+
+    chat_log = ChatLog.objects.filter(Q(chat_from__username=request.user) | Q(chat_to__username=request.user)).select_related('chat_from', 'chat_to').order_by('-created_at')
+    # print(chat_log)
+    if chat_log != None:
+        friend_usernames = []
+        for chat in chat_log:
+            if chat.chat_from != request.user:
+                friend_usernames.append(chat.chat_from)
+            elif chat.chat_to != request.user:
+                friend_usernames.append(chat.chat_to)
+        # print(friend_usernames)
+        # Create a mapping between usernames and profiles
+        username_profile_mapping = {profile.user.username: profile for profile in friends_list}
+
+        processed_usernames = set()
+
+        # Initialize the sorted list
+        sorted_friends_list = []
+
+        # Iterate through friend_usernames
+        for user in friend_usernames:
+            # Check if the profile corresponding to the username is in user_follower_list and not already processed
+            if user.username in username_profile_mapping and user.username not in processed_usernames:
+                # Append the profile to sorted_user_follower_list
+                sorted_friends_list.append(username_profile_mapping[user.username])
+                # Add the username to the processed set
+                processed_usernames.add(user.username)
+
+        # Append profiles from user_follower_list that are not present in friend_usernames
+        for profile in friends_list:
+            if profile.user.username not in processed_usernames:
+                sorted_friends_list.append(profile)
+                processed_usernames.add(profile.user.username)
+
+
+    # print(friends_list)
+    # print(sorted_friends_list)
+    # print(friends_username)
+    # print(user_followers_list)
+    # print(user_following_list)
+    return render(request, "chat.html", { "friends_list": sorted_friends_list})
