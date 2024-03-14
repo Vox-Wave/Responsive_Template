@@ -567,9 +567,10 @@ def delete_chat(request, chat_id):
 
 @login_required(login_url='signin')
 def message_view(request):
+    user_object = User.objects.get(username=request.user.username)
+    user_profile = Profile.objects.get(user=user_object)
     user_following_list = []
     user_followers_list = []
-    friends = []
     friends_list = []
     user_following = FollowersCount.objects.filter(follower=request.user.username)
     user_followers = FollowersCount.objects.filter(user=request.user.username)
@@ -627,4 +628,4 @@ def message_view(request):
     # print(friends_username)
     # print(user_followers_list)
     # print(user_following_list)
-    return render(request, "chat.html", { "friends_list": sorted_friends_list})
+    return render(request, "chat.html", { "friends_list": sorted_friends_list, "user_profile": user_profile})
