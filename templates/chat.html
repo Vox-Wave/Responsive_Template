@@ -78,6 +78,9 @@
         width: 100%;
         height: 780px;
         overflow-y: auto;
+        padding-left: 60px;
+        padding-top: 20px;
+        padding-right: 60px;
       }
       .message-display-header{
         width: 100%;
@@ -87,6 +90,33 @@
       .message-display-footer{
         width: 100%;
         height: 80px;
+      }
+
+      /* Style for messages sent by the current user (right side) */
+      .message-right {
+        display: flex;
+        flex-direction: row-reverse; /* Reverse the direction for right-aligned messages */
+        margin-bottom: 10px; /* Adjust spacing between messages */
+      }
+
+      /* Style for messages received by the current user (left side) */
+      .message-left {
+        display: flex;
+        flex-direction: row; /* Default direction for left-aligned messages */
+        margin-bottom: 10px; /* Adjust spacing between messages */
+      }
+
+      /* Style for the message content */
+      .message p {
+        padding: 8px 12px; /* Add padding to the message content */
+        border-radius: 20px; /* Add rounded corners to the message bubble */
+        background-color: #f2f2f2; /* Background color of the message bubble */
+        max-width: 70%; /* Limit the width of the message bubble */
+      }
+
+      /* Style for the audio player */
+      .message audio {
+        max-width: 70%; /* Limit the width of the audio player */
       }
     }
     .dropdown-menu {
@@ -110,6 +140,9 @@
   .dropdown-menu a:hover {
       background-color: #f0f0f0;
   }
+
+  
+
 </style>
 {% endblock %}
 
@@ -201,19 +234,71 @@
     });
 });
 
-function displayMessages(friend_username, profileimg_url){
+function displayMessages(friend_username, profileimg_url) {
   // Get the elements by their IDs
   var profileLink = document.getElementById('profile-link');
   var profileImage = document.getElementById('profile-image');
-  var headerUsername = document.getElementById('friendUsername')
+  var headerUsername = document.getElementById('friendUsername');
+  var messageDisplay = document.getElementById('message-display-area');
 
+  // Set the header username
   headerUsername.innerHTML = "<b>" + friend_username + "</b>";
 
-  // Set the href attribute of the <a> tag
+  // Set the href attribute of the profile link
   profileLink.href = "/profile/" + friend_username;
 
-  // Set the src attribute of the <img> tag
+  // Set the src attribute of the profile image
   profileImage.src = profileimg_url;
+
+  // Fetch chat data from the backend
+  fetch('/chat/' + friend_username + '/')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Clear existing content of message display area
+      messageDisplay.innerHTML = '';
+
+      // Loop through chat messages and populate message display area
+      data.chat_history.forEach(message => {
+        var messageDiv = document.createElement('div');
+        messageDiv.className = 'message';
+
+        // Create message content based on message type
+        var messageContent = '';
+        if (message.chat_text) {
+          messageContent = '<p>' + message.chat_text + '</p>';
+        } else if (message.audio_url) {
+          messageContent = '<audio controls><source src="' + message.audio_url + '" type="audio/mpeg">Your browser does not support the audio element.</audio>';
+        }
+        // Add other message types as needed
+
+        // Add message content to message div
+        messageDiv.innerHTML = messageContent;
+
+        // Add a CSS class based on message sender
+        if (message.chat_from === '{{ request.user.username }}') {
+          messageDiv.classList.add('message-right');
+        } else {
+          messageDiv.classList.add('message-left');
+        }
+
+        // Append message div to message display area
+        messageDisplay.appendChild(messageDiv);
+        
+      });
+
+      // Set the scrollbar to the bottom after adding new messages
+      messageDisplay.scrollTop = messageDisplay.scrollHeight;
+    })
+    .catch(error => {
+      console.error('There was a problem with your fetch operation:', error);
+    });
 }
+
+
 </script>
 {% endblock %}

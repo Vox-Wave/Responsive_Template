@@ -516,9 +516,12 @@ def chat(request):
 
 
 @login_required(login_url='signin')    
-def get_chat_log(request, currentUser):
+def get_chat_log(request, friendUsername):
 
-    chat_log = ChatLog.objects.filter(Q(chat_from__username=currentUser) | Q(chat_to__username=currentUser)).select_related('chat_from', 'chat_to').order_by('created_at')
+    chat_log = ChatLog.objects.filter(
+        Q(chat_from__username=request.user.username, chat_to__username=friendUsername) |
+        Q(chat_from__username=friendUsername, chat_to__username=request.user.username)
+    ).select_related('chat_from', 'chat_to').order_by('created_at')
     chat_data = []
     for message in chat_log:
         message_created_at = message.created_at.astimezone(timezone.get_current_timezone())
