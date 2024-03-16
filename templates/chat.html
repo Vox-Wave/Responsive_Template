@@ -77,10 +77,12 @@
       .message-display{
         width: 100%;
         height: 780px;
+        overflow-y: auto;
       }
       .message-display-header{
         width: 100%;
         height: 80px;
+        padding-right: 0px;
       }
       .message-display-footer{
         width: 100%;
@@ -143,7 +145,7 @@
                   
               </div>
               <div class="w3-container w3cell w3-right" style="margin-top: 25px;">
-                <button type="button" onclick="document.getElementById('messages').style.display='block'; document.getElementById('blank-page').style.display='none';" class="w3-btn w3-border w3-round-large " style="background-color: #cccccc; color: white;"> <b>Message</b> </button>
+                <button type="button" onclick="document.getElementById('messages').style.display='block'; document.getElementById('blank-page').style.display='none'; displayMessages('{{ friends.user }}', '{{ friends.profileimg.url }}');" class="w3-btn w3-border w3-round-large " style="background-color: #cccccc; color: white;"> <b>Message</b> </button>
               </div>
             </div> 
             {% endfor %}
@@ -153,14 +155,21 @@
       <div class="w3-center w3-display-middle" id="blank-page">
           <h3 style="color: #cccccc;"><b> Your Messages....!!!</b></h3>
       </div>
-      <div class="w3-container" id="messages" style="display: none;">
-        <header class="w3-container message-display-header">
-
+      <div class="w3-container" id="messages" style="display: none; padding-right: 0px;">
+        <header class="w3-container message-display-header w3-round w3-card-4">
+          <div class="w3-container w3cell w3-left" style="margin-top: 20px;">
+            <a id="profile-link">
+              <img  id="profile-image" class="w3-circle" style="width: 40px; height:40px; cursor: pointer;">
+            </a>
+          </div>
+          <div class="w3-container w3cell w3-left" style="margin-top: 18px;">
+              <h3 id="friendUsername" class="capitalize" style="padding-left: 60px;"></h3>
+          </div>
         </header>
-        <div class="w3-container message-display" id="message-display-area">
+        <div class="w3-container message-display w3-border w3-round w3-card-4" id="message-display-area">
 
         </div>
-        <footer class="w3-container message-display-footer">
+        <footer class="w3-container message-display-footer w3-round w3-card-4">
 
         </footer>
       </div>
@@ -191,5 +200,20 @@
         });
     });
 });
+
+function displayMessages(friend_username, profileimg_url){
+  // Get the elements by their IDs
+  var profileLink = document.getElementById('profile-link');
+  var profileImage = document.getElementById('profile-image');
+  var headerUsername = document.getElementById('friendUsername')
+
+  headerUsername.innerHTML = "<b>" + friend_username + "</b>";
+
+  // Set the href attribute of the <a> tag
+  profileLink.href = "/profile/" + friend_username;
+
+  // Set the src attribute of the <img> tag
+  profileImage.src = profileimg_url;
+}
 </script>
 {% endblock %}
