@@ -90,6 +90,7 @@
       .message-display-footer{
         width: 100%;
         height: 80px;
+        padding-top: 20px;
       }
 
       /* Style for messages sent by the current user (right side) */
@@ -203,7 +204,16 @@
 
         </div>
         <footer class="w3-container message-display-footer w3-round w3-card-4">
-
+            <div class="w3-container w3-cell w3-center">
+              <input type="text" id="messageInput" class="message-input" placeholder="Type your message..." onkeydown="if (event.key === 'Enter') { document.getElementById('send-icon').click(); event.preventDefault(); }" />
+              <audio class="message-input" id="audioInput" controls hidden></audio>
+            </div>
+            <div class="w3-container w3-cell w3-center">
+              <button type="button" style="background-color: transparent; border: none; cursor: pointer" onclick="recordMessage();" id="record-icon" class="record-icon">Record</button>
+            </div>
+            <div class="w3-container w3-cell w3-center">
+              <button type="button" style="background-color: transparent; border: none; cursor: pointer" onclick="sendMessage();" id="send-icon" class="send-icon">Send</button>
+            </div>
         </footer>
       </div>
     </div>
@@ -212,93 +222,178 @@
     
 {% block myscript %}
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var dropdowns = document.querySelectorAll('.dropdown');
+    document.addEventListener("DOMContentLoaded", function() {
+      var dropdowns = document.querySelectorAll('.dropdown');
 
-    dropdowns.forEach(function(dropdown) {
-        var button = dropdown.querySelector('.dropdown-toggle');
-        var menu = dropdown.querySelector('.dropdown-menu');
+      dropdowns.forEach(function(dropdown) {
+          var button = dropdown.querySelector('.dropdown-toggle');
+          var menu = dropdown.querySelector('.dropdown-menu');
 
-        button.addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevent event bubbling
+          button.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent event bubbling
 
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-        });
+                menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+          });
 
-        document.addEventListener('click', function(event) {
-            var target = event.target;
-            if (!dropdown.contains(target)) {
-                menu.style.display = 'none';
-            }
-        });
-    });
-});
-
-function displayMessages(friend_username, profileimg_url) {
-  // Get the elements by their IDs
-  var profileLink = document.getElementById('profile-link');
-  var profileImage = document.getElementById('profile-image');
-  var headerUsername = document.getElementById('friendUsername');
-  var messageDisplay = document.getElementById('message-display-area');
-
-  // Set the header username
-  headerUsername.innerHTML = "<b>" + friend_username + "</b>";
-
-  // Set the href attribute of the profile link
-  profileLink.href = "/profile/" + friend_username;
-
-  // Set the src attribute of the profile image
-  profileImage.src = profileimg_url;
-
-  // Fetch chat data from the backend
-  fetch('/chat/' + friend_username + '/')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      // Clear existing content of message display area
-      messageDisplay.innerHTML = '';
-
-      // Loop through chat messages and populate message display area
-      data.chat_history.forEach(message => {
-        var messageDiv = document.createElement('div');
-        messageDiv.className = 'message';
-
-        // Create message content based on message type
-        var messageContent = '';
-        if (message.chat_text) {
-          messageContent = '<p>' + message.chat_text + '</p>';
-        } else if (message.audio_url) {
-          messageContent = '<audio controls><source src="' + message.audio_url + '" type="audio/mpeg">Your browser does not support the audio element.</audio>';
-        }
-        // Add other message types as needed
-
-        // Add message content to message div
-        messageDiv.innerHTML = messageContent;
-
-        // Add a CSS class based on message sender
-        if (message.chat_from === '{{ request.user.username }}') {
-          messageDiv.classList.add('message-right');
-        } else {
-          messageDiv.classList.add('message-left');
-        }
-
-        // Append message div to message display area
-        messageDisplay.appendChild(messageDiv);
-        
+          document.addEventListener('click', function(event) {
+                var target = event.target;
+                if (!dropdown.contains(target)) {
+                    menu.style.display = 'none';
+                }
+          });
       });
-
-      // Set the scrollbar to the bottom after adding new messages
-      messageDisplay.scrollTop = messageDisplay.scrollHeight;
-    })
-    .catch(error => {
-      console.error('There was a problem with your fetch operation:', error);
     });
-}
 
+    function displayMessages(friend_username, profileimg_url) {
+      // Get the elements by their IDs
+      var profileLink = document.getElementById('profile-link');
+      var profileImage = document.getElementById('profile-image');
+      var headerUsername = document.getElementById('friendUsername');
+      var messageDisplay = document.getElementById('message-display-area');
 
+      // Set the header username
+      headerUsername.innerHTML = "<b>" + friend_username + "</b>";
+
+      // Set the href attribute of the profile link
+      profileLink.href = "/profile/" + friend_username;
+
+      // Set the src attribute of the profile image
+      profileImage.src = profileimg_url;
+
+      // Fetch chat data from the backend
+      fetch('/chat/' + friend_username + '/')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Clear existing content of message display area
+          messageDisplay.innerHTML = '';
+
+          // Loop through chat messages and populate message display area
+          data.chat_history.forEach(message => {
+            var messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+
+            // Create message content based on message type
+            var messageContent = '';
+            if (message.chat_text) {
+              messageContent = `<p>${message.chat_text}</p>`;
+            } else if (message.audio_url) {
+              messageContent = `<audio controls><source src="${message.audio_url}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
+            }
+            // Add other message types as needed
+
+            // Add message content to message div
+            messageDiv.innerHTML = messageContent;
+
+            // Add a CSS class based on message sender
+            if (message.chat_from === '{{ request.user.username }}') {
+              messageDiv.classList.add('message-right');
+            } else {
+              messageDiv.classList.add('message-left');
+            }
+
+            // Append message div to message display area
+            messageDisplay.appendChild(messageDiv);
+            
+          });
+
+          // Set the scrollbar to the bottom after adding new messages
+          messageDisplay.scrollTop = messageDisplay.scrollHeight;
+        })
+        .catch(error => {
+          console.error('There was a problem with your fetch operation:', error);
+        });
+    }
+
+    // Function to simulate recording a message
+    let is_recording = false;
+    let audioBlob;
+
+    async function recordMessage() {
+        let mediaRecorder;
+        let recordedChunks = [];
+        const recordButton = document.querySelector('.record-icon');
+        const isRecording = recordButton.textContent === 'Stop'; // Check current state
+
+        if (!isRecording && recordButton.textContent === "Record") {
+            // Start recording
+            recordButton.textContent = 'Stop';
+            is_recording = true;
+
+            try {
+                // Request permission from the user to access their microphone
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+                // Start audio recording
+                mediaRecorder = new MediaRecorder(stream);
+
+                mediaRecorder.addEventListener('dataavailable', event => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                });
+
+                mediaRecorder.start();
+            } catch (error) {
+                console.error('Error accessing microphone:', error);
+                // Reset the button text if there's an error
+                recordButton.textContent = 'Record';
+                is_recording = false;
+            }
+
+        } 
+        else if (recordButton.textContent === "Delete") {
+            // User clicked Delete after stopping recording
+            audioBlob = null;
+            const audioInput = document.getElementById('audioInput');
+            audioInput.hidden = true;
+            const messageInput = document.getElementById('messageInput');
+            messageInput.hidden = false;
+            recordButton.textContent = "Record";
+        }
+        else {
+            // Stop recording
+            recordButton.textContent = 'Delete';
+            is_recording = false;
+
+            // Stop audio recording
+            mediaRecorder.stop();
+
+            // Wait a bit before creating the Blob to ensure all data is available
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            // Create a Blob from the recorded chunks
+            audioBlob = new Blob(recordedChunks, { type: 'audio/webm' });
+
+            // Reset recordedChunks array
+            recordedChunks = [];
+
+            // Create an object URL for the audio Blob and set it as the source for the audio tag
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audioInput = document.getElementById('audioInput');
+            audioInput.src = audioUrl;
+
+            // Show the audio controls
+            audioInput.hidden = false;
+
+            // Hide the text input
+            const messageInput = document.getElementById('messageInput');
+            messageInput.hidden = true;
+        }
+    }
+
+    // Function to generate a random filename of length 7
+    function generateRandomFilename() {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let randomFilename = '';
+        for (let i = 0; i < 7; i++) {
+            randomFilename += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return randomFilename;
+    }  
 </script>
 {% endblock %}
