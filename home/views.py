@@ -444,11 +444,11 @@ def chat(request):
         try:
             chat_text = request.POST.get('message')
             friend_username = request.POST.get('friend_username')
-            print(chat_text)
+            # print(chat_text)
             # Handle the audio file
             audio_file = request.FILES.get('audio')
             created_at = datetime.now()
-            print(created_at)
+            # print(created_at)
             
             # Check for empty chat_text
             if not chat_text and not audio_file:
