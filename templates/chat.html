@@ -318,12 +318,12 @@
     }
 
     // Function to simulate recording a message
+    let mediaRecorder;
+    let recordedChunks = [];
     let is_recording = false;
     let audioBlob;
 
     async function recordMessage() {
-        let mediaRecorder;
-        let recordedChunks = [];
         const recordButton = document.querySelector('.record-icon');
         const isRecording = recordButton.textContent === 'Stop'; // Check current state
 
@@ -432,6 +432,12 @@
               throw new Error('Network response was not ok');
           }
           audioBlob = null;
+          const audioInput = document.getElementById('audioInput');
+          audioInput.hidden = true;
+          const messageInput = document.getElementById('messageInput');
+          messageInput.hidden = false;
+          const recordButton = document.querySelector('.record-icon');
+          recordButton.textContent = "Record";
           return response.json();
       })
       .then(data => {
