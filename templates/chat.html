@@ -49,23 +49,30 @@
         left: 600px;
         height: 100vh;
         width: 1320px;
-        background-color: red;
       }
       .left-header{
-        background-color: white;
         height: 100px;
         width: 540px;
         margin: 10px;
         margin-left: 10px;
         position: fixed;
+        top: 20px; /* Stick the header to the top of the container */
+        z-index: 999; /* Ensure header appears above other content */
         padding-top: 25px;
-        z-index: 6;
       }
       .friend-card{
         height: 100px;
-        background-color: white;
         margin-bottom: 10px;
         font-size: 18px;
+      }
+      .friend-list-container{
+        position: absolute;
+        top: 110px;
+        left: 0px;
+        width: 100%;
+        height: 820px;
+        padding-top: 20px;
+        overflow-y: auto;
       }
     }
     .dropdown-menu {
@@ -94,8 +101,8 @@
 
 {% block mybody %}
 <div class="w3-container" style="padding: 0px; margin: 0px; position: relative;">
-    <div class="w3-container left-side" style="position: absolute; overflow-y: auto;">
-      <div class="w3-container w3-round-xxlarge" style="padding-left: 5px;">
+    <div class="w3-container left-side" style="position: absolute;">
+      <div class="w3-container w3-round-xxlarge" style="padding-left: 5px; background-color: white;">
         <div class="w3-container left-header w3-round-xxlarge w3-card-4">
           <div class="dropdown w3-cell w3-left">
             <img src="{{user_profile.profileimg.url}}" class="w3-circle dropdown-toggle" style="width: 40px; height:40px; cursor: pointer;" alt="">
@@ -109,9 +116,9 @@
             <div class="w3-container w3-cell w3-right">
               <a href="/" style="text-decoration: none;"><h3><b>VoxWave</b></h3></a>
             </div>
+        </div>
       </div>
-    </div>
-        <div class="w3-container" style="margin-top: 160px;">
+      <div class="w3-container friend-list-container" style="margin-top: 20px;">
             {% for friends in friends_list %}
             <div class="w3-hover-shadow w3-round-xxlarge friend-card">
               <div class="w3-container w3cell w3-left" style="margin-top: 25px;">
@@ -124,14 +131,18 @@
                   
               </div>
               <div class="w3-container w3cell w3-right" style="margin-top: 25px;">
-                <button type="button" class="w3-btn w3-border w3-round-large " style="background-color: #cccccc; color: white;"> <b>Message</b> </button>
+                <button type="button" onclick="document.getElementById('messages').style.display='block'; document.getElementById('blank-page').style.display='none';" class="w3-btn w3-border w3-round-large " style="background-color: #cccccc; color: white;"> <b>Message</b> </button>
               </div>
             </div> 
             {% endfor %}
-        </div>
+      </div>
     </div>
     <div class="w3-container right-side" style="position: absolute;">
-
+      <div class="w3-center w3-display-middle" id="blank-page">
+          <h3 style="color: #cccccc;"><b> Your Messages....!!!</b></h3>
+      </div>
+      <div class="w3-container" id="messages">
+      </div>
     </div>
 </div>
 {% endblock %}
