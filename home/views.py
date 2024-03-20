@@ -137,7 +137,7 @@ def signup(request):
             return redirect("signup")
     else:
         return render(request, "signup.html")
-    
+  
 def signin(request):
 
     if request.method == "POST":
@@ -276,7 +276,8 @@ def follow(request):
             return redirect("/profile/"+user)
     else:
         return redirect("/")
-    
+
+@csrf_exempt
 @login_required(login_url='signin')
 def search(request):
 
