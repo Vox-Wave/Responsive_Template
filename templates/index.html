@@ -373,32 +373,37 @@
         </div>
         
     </div>
+    
     <div class="w3-container" style="height: auto; margin-top: 100px;">
-      {% for post in posts reversed %}
-        <div class="w3-card-4 w3-round-large feed-card w3-display-container" style="background-color: white; margin-top: 40px;">
-          <img src="{{post.image.url}}" class="w3-round-large" alt="Feed">
-          <div class="w3-display-topleft w3-container" style="padding-top: 10px; padding-left: 20px;"><b><a href="/profile/{{post.user}}" style="text-decoration: none; color: white; text-shadow:1px 1px 0 #444"><h4> @{{post.user}} </h4></a></b></div>
-          <div class="w3-display-bottomleft w3-container" style="padding-bottom: 20px; padding-left: 20px;"><h3 class="caption" style="text-shadow:1px 1px 0 #444; color: white;">{{post.caption}}</h3></div>  
-          </div>
-          <div class="w3-container like-div" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;border-top-right-radius: 5px; border-top-left-radius: 5px;">
-          <div class="w3-container w3-cell w3-left">
-              <a href="/like-post?post_id={{post.id}}" style="text-decoration: none; cursor: pointer;">
-                      <i class="fa fa-thumbs-up" aria-hidden="true" style="font-size: 30px;"></i>
-              </a>    
-          </div>
-          <div class="w3-container w3-cell w3-right" style="padding-top: 8px;">
-            <b>
-            {% if post.no_of_likes == 0%}
-                No Likes
-            {% elif post.no_of_likes == 1 %}
-                Liked by {{post.no_of_likes}} person
-            {%else%}
-                Liked by {{post.no_of_likes}} people
-            {% endif %}
-            </b>
-          </div> 
-        </div>
-        {% endfor %}
+      {% if posts %}
+          {% for post in posts reversed %}
+            <div class="w3-card-4 w3-round-large feed-card w3-display-container" style="background-color: white; margin-top: 40px;">
+              <img src="{{post.image.url}}" class="w3-round-large" alt="Feed">
+              <div class="w3-display-topleft w3-container" style="padding-top: 10px; padding-left: 20px;"><b><a href="/profile/{{post.user}}" style="text-decoration: none; color: white; text-shadow:1px 1px 0 #444"><h4> @{{post.user}} </h4></a></b></div>
+              <div class="w3-display-bottomleft w3-container" style="padding-bottom: 20px; padding-left: 20px;"><h3 class="caption" style="text-shadow:1px 1px 0 #444; color: white;">{{post.caption}}</h3></div>  
+              </div>
+              <div class="w3-container like-div" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;border-top-right-radius: 5px; border-top-left-radius: 5px;">
+              <div class="w3-container w3-cell w3-left">
+                  <a href="/like-post?post_id={{post.id}}" style="text-decoration: none; cursor: pointer;">
+                          <i class="fa fa-thumbs-up" aria-hidden="true" style="font-size: 30px;"></i>
+                  </a>    
+              </div>
+              <div class="w3-container w3-cell w3-right" style="padding-top: 8px;">
+                <b>
+                {% if post.no_of_likes == 0%}
+                    No Likes
+                {% elif post.no_of_likes == 1 %}
+                    Liked by {{post.no_of_likes}} person
+                {%else%}
+                    Liked by {{post.no_of_likes}} people
+                {% endif %}
+                </b>
+              </div> 
+            </div>
+            {% endfor %}
+        {% else %}
+            <p><h3 style="color: white;"><b>No Posts Yet! Follow Existing users to see their Moments....!!</b></h3></p>
+        {% endif %}
     </div>
     <button type="button" onclick="chatPage()" class="dragBtn w3-btn"><i class="fa fa-comments" aria-hidden="true"></i></button>
     <button type="button" onclick="document.getElementById('suggestion').style.display='block'" class="addBtn mobile-only w3-btn"><i class="fa fa-address-book-o" aria-hidden="true"></i></button>

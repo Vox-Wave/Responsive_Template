@@ -704,6 +704,7 @@
     background-color: white;
     padding-top: 10px;
     width: 35%;
+    position: relative;
   }
   .message-left {
     display: flex;
@@ -753,7 +754,13 @@
     visibility: hidden;
   }
     }
-    
+    .message-time {
+      position: absolute;
+      bottom: 10px; /* Adjust this value as needed */
+      right: 10px; /* Adjust this value as needed */
+      font-size: 12px; /* Adjust the font size as needed */
+      color: #888; /* Adjust the color as needed */
+    }
 
 </style>
 {% endblock %}
@@ -784,20 +791,23 @@
     <div class="w3-container" style="width: 100%;">
 
       <div class="w3-container" style="margin-top: 100px;">
-
-        {% for friends in friends_list %}
-        <div class="w3-hover-shadow w3-round-xxlarge friend-card" style="position: relative;" onclick="document.getElementById('contacts').style.display='none'; document.getElementById('messages').style.display='block'; displayMessages('{{ friends.user }}', '{{ friends.profileimg.url }}');">
-          <div class="w3-container w3cell w3-left" style="margin-top: 25px; margin-left: 20px;">
-            <a href="/profile/{{friends.user}}">
-              <img src="{{friends.profileimg.url}}" class="w3-circle" style="width: 40px; height:40px; cursor: pointer;">
-            </a>
-          </div>
-          <div class="w3-container w3cell w3-left friend-card-name" style="margin-top: 20px; padding-left: 50px;">
-            <p><h5 class="capitalize"><b>{{friends.user}}</b></h5></p>
-          </div>
-          <hr class="hr-line">
-        </div> 
-        {% endfor %}
+        {% if friends_list %}
+            {% for friends in friends_list %}
+            <div class="w3-hover-shadow w3-round-xxlarge friend-card" style="position: relative;" onclick="document.getElementById('contacts').style.display='none'; document.getElementById('messages').style.display='block'; displayMessages('{{ friends.user }}', '{{ friends.profileimg.url }}');">
+              <div class="w3-container w3cell w3-left" style="margin-top: 25px; margin-left: 20px;">
+                <a href="/profile/{{friends.user}}">
+                  <img src="{{friends.profileimg.url}}" class="w3-circle" style="width: 40px; height:40px; cursor: pointer;">
+                </a>
+              </div>
+              <div class="w3-container w3cell w3-left friend-card-name" style="margin-top: 20px; padding-left: 50px;">
+                <p><h5 class="capitalize"><b>{{friends.user}}</b></h5></p>
+              </div>
+              <hr class="hr-line">
+            </div> 
+            {% endfor %}
+        {% else %}
+            <p><h3 style="color: black;"><b>No Friends Yet! Follow And Be Sure To Be Followed Back To Become Friends....!!</b></h3></p>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -863,20 +873,23 @@
     <div class="w3-container" style="width: 45%;">
 
       <div class="w3-container" style="margin-top: 100px;height: 720px; overflow-y: auto;">
-
-        {% for friends in friends_list %}
-        <div class="w3-hover-shadow w3-round-xxlarge friend-card" style="position: relative;" onclick="document.getElementById('messages-desktop').classList.remove('message-hidden');displayMessagesDesktop('{{ friends.user }}', '{{ friends.profileimg.url }}');">
-          <div class="w3-container w3cell w3-left" style="margin-top: 25px; margin-left: 20px;">
-            <a href="/profile/{{friends.user}}">
-              <img src="{{friends.profileimg.url}}" class="w3-circle" style="width: 40px; height:40px; cursor: pointer;">
-            </a>
-          </div>
-          <div class="w3-container w3cell w3-left friend-card-name" style="margin-top: 20px; padding-left: 50px;">
-            <p><h5 class="capitalize"><b>{{friends.user}}</b></h5></p>
-          </div>
-          <hr class="hr-line">
-        </div> 
-        {% endfor %}
+        {% if friends_list %}
+            {% for friends in friends_list %}
+            <div class="w3-hover-shadow w3-round-xxlarge friend-card" style="position: relative;" onclick="document.getElementById('messages-desktop').classList.remove('message-hidden');displayMessagesDesktop('{{ friends.user }}', '{{ friends.profileimg.url }}');">
+              <div class="w3-container w3cell w3-left" style="margin-top: 25px; margin-left: 20px;">
+                <a href="/profile/{{friends.user}}">
+                  <img src="{{friends.profileimg.url}}" class="w3-circle" style="width: 40px; height:40px; cursor: pointer;">
+                </a>
+              </div>
+              <div class="w3-container w3cell w3-left friend-card-name" style="margin-top: 20px; padding-left: 50px;">
+                <p><h5 class="capitalize"><b>{{friends.user}}</b></h5></p>
+              </div>
+              <hr class="hr-line">
+            </div> 
+            {% endfor %}
+        {% else %}
+            <p><h3 style="color: black;" class="w3-center"><b>No Friends Yet! Follow And Be Sure To Be Followed Back To Become Friends....!!</b></h3></p>
+        {% endif %}
       </div>
     </div>
 
@@ -984,11 +997,13 @@
                   <i class="fa fa-etsy" aria-hidden="true"></i></button>
                   
                   `: ''}
+                  <span class="message-time">${message.created_at}</span>
                 </div>
                 <br>
                   <div id="class_${message.chat_id}" class="w3-hide" style="margin: 0px; padding: 0px; width: 100%;">
                     <p style="background-color: #f2f2f2; width: 80%;">${message.emotion_class}</p>
                   </div>
+                  
                 `;
         } else if (message.audio_url) {
           messageContent = `
@@ -1004,6 +1019,7 @@
                   <i class="fa fa-text-width" aria-hidden="true" style="font-size: 20px;"></i></button>
                   
                   `: ''}
+                  <span class="message-time">${message.created_at}</span>
                 </div>
                 <br>
                   <div id="class_${message.chat_id}" class="w3-hide" style="margin: 0px; padding: 0px; width: 100%;">
@@ -1073,6 +1089,7 @@
                   <i class="fa fa-etsy" aria-hidden="true"></i></button>
                   
                   `: ''}
+                  <span class="message-time">${message.created_at}</span>
                 </div>
                 <br>
                   <div id="class_${message.chat_id}" class="w3-hide" style="margin: 0px; padding: 0px; width: 100%;">
@@ -1093,6 +1110,7 @@
                   <i class="fa fa-text-width" aria-hidden="true" style="font-size: 20px;"></i></button>
                   
                   `: ''}
+                  <span class="message-time">${message.created_at}</span>
                 </div>
                 <br>
                   <div id="class_${message.chat_id}" class="w3-hide" style="margin: 0px; padding: 0px; width: 100%;">

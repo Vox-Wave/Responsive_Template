@@ -62,7 +62,7 @@ def index(request):
         username_profile_list.append(profile_lists)
 
     suggestions_username_profile_list = list(chain(*username_profile_list))
-
+    
     return render(request, 
                   "index.html", 
                   {
@@ -536,7 +536,7 @@ def get_chat_log(request, friendUsername):
             'created_at': message_created_at.strftime('%d-%m-%Y %H:%M:%S'),
             # Add other relevant fields as required
         }
-        # print(message.created_at)
+        # print(chat_item['created_at'])
 
         # print(settings.MEDIA_URL)
         # Check if the message has an audio file associated with it
@@ -625,7 +625,6 @@ def message_view(request):
             if profile.user.username not in processed_usernames:
                 sorted_friends_list.append(profile)
                 processed_usernames.add(profile.user.username)
-
 
     # print(friends_list)
     # print(sorted_friends_list)
