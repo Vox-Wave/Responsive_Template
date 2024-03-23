@@ -845,6 +845,18 @@
           <button type="button" style="background-color: transparent; border: none; cursor: pointer" onclick="sendMessage();" id="send-icon" class="send-icon"><i class="fa fa-paper-plane" aria-hidden="true" style="font-size: 25px;"></i></button>
         </div>
       </div>
+      <div id="mobile-edit" class="w3-modal">
+        <div class="w3-modal-content w3-card-4" style="margin-top: 150px; width: 80%">
+          <header class="w3-container"> 
+            <span onclick="document.getElementById('mobile-edit').style.display='none'" 
+            class="w3-button w3-display-topright">&times;</span>
+            <h2>Edit Transcript</h2>
+          </header>
+          <div class="w3-container" id="mobile-form">
+            
+          </div>
+        </div>
+      </div>
   </div>
 
 </div>
@@ -928,6 +940,18 @@
           <button type="button" style="background-color: transparent; border: none; cursor: pointer" onclick="sendMessageDesktop();" id="send-icon-desktop" class="send-icon"><i class="fa fa-paper-plane" aria-hidden="true" style="font-size: 25px;"></i></button>
         </div>
       </div>
+      <div id="desktop-edit" class="w3-modal">
+        <div class="w3-modal-content w3-card-4" style="margin-top: 150px; width: 50%">
+          <header class="w3-container"> 
+            <span onclick="document.getElementById('desktop-edit').style.display='none'" 
+            class="w3-button w3-display-topright">&times;</span>
+            <h2>Edit Transcript</h2>
+          </header>
+          <div class="w3-container" id="desktop-form">
+            
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 {% endblock %}
@@ -935,6 +959,126 @@
 {% block myscript %}
 
 <script>
+// Get the modal
+var modal1 = document.getElementById('desktop-edit');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal1) {
+    modal1.style.display = "none";
+  }
+}
+  
+var modal2 = document.getElementById('mobile-edit');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal2) {
+    modal2.style.display = "none";
+  }
+}
+
+function speakChat(message) {
+  let speakData = new SpeechSynthesisUtterance();
+  const voices = speechSynthesis.getVoices();
+  speakData.voice = voices[1];
+  speakData.text = message;
+  speakData.lang = 'en';
+
+  // Set properties for a pleasant speech experience
+  speakData.volume = 1; // From 0 to 1
+  speakData.rate = 1; // From 0.1 to 10 (1 is normal speed)
+  speakData.pitch = 1; // From 0 to 2 (1 is normal pitch)
+
+  // Speak the message
+  speechSynthesis.speak(speakData);
+}
+function editTranscriptMobile(chat_id, transcript){
+  // Create form element
+  var form = document.createElement('form');
+  form.setAttribute('method', 'POST');
+  form.setAttribute('action', 'edit-transcript/'); // Assuming 'edit-transcript' is your API endpoint
+
+  // Create hidden input for chat_id
+  var chatIdInput = document.createElement('input');
+  chatIdInput.setAttribute('type', 'hidden');
+  chatIdInput.setAttribute('name', 'chat_id');
+  chatIdInput.setAttribute('value', chat_id);
+  form.appendChild(chatIdInput);
+
+  // Create text input for transcript
+  var transcriptInput = document.createElement('input');
+  transcriptInput.setAttribute('type', 'text');
+  transcriptInput.setAttribute('name', 'transcript');
+  transcriptInput.setAttribute('value', transcript);
+  transcriptInput.classList.add('w3-input');
+  transcriptInput.classList.add('w3-border');
+  form.appendChild(transcriptInput);
+  // Create line break
+var lineBreak = document.createElement('br');
+form.appendChild(lineBreak);
+
+  // Create submit button
+  var submitButton = document.createElement('input');
+  submitButton.setAttribute('type', 'submit');
+  submitButton.setAttribute('value', 'Submit');
+  submitButton.classList.add('w3-btn'); 
+  submitButton.classList.add('w3-border'); 
+  submitButton.classList.add('w3-round-large'); 
+  submitButton.classList.add('editButton'); 
+  form.appendChild(submitButton);
+  // Create line break
+var lineBreak = document.createElement('br');
+form.appendChild(lineBreak);
+  // Append form to the specified div
+  var desktopFormDiv = document.getElementById('mobile-form');
+  desktopFormDiv.innerHTML = ''; // Clear previous content
+  desktopFormDiv.appendChild(form);
+}
+
+function editTranscriptDesktop(chat_id, transcript){
+  // Create form element
+  var form = document.createElement('form');
+  form.setAttribute('method', 'POST');
+  form.setAttribute('action', 'edit-transcript/'); // Assuming 'edit-transcript' is your API endpoint
+
+  // Create hidden input for chat_id
+  var chatIdInput = document.createElement('input');
+  chatIdInput.setAttribute('type', 'hidden');
+  chatIdInput.setAttribute('name', 'chat_id');
+  chatIdInput.setAttribute('value', chat_id);
+  form.appendChild(chatIdInput);
+
+  // Create text input for transcript
+  var transcriptInput = document.createElement('input');
+  transcriptInput.setAttribute('type', 'text');
+  transcriptInput.setAttribute('name', 'transcript');
+  transcriptInput.setAttribute('value', transcript);
+  transcriptInput.classList.add('w3-input');
+  transcriptInput.classList.add('w3-border');
+  form.appendChild(transcriptInput);
+  // Create line break
+var lineBreak = document.createElement('br');
+form.appendChild(lineBreak);
+
+  // Create submit button
+  var submitButton = document.createElement('input');
+  submitButton.setAttribute('type', 'submit');
+  submitButton.setAttribute('value', 'Submit');
+  submitButton.classList.add('w3-btn'); 
+  submitButton.classList.add('w3-border'); 
+  submitButton.classList.add('w3-round-large'); 
+  submitButton.classList.add('editButton'); 
+  form.appendChild(submitButton);
+  // Create line break
+var lineBreak = document.createElement('br');
+form.appendChild(lineBreak);
+
+  // Append form to the specified div
+  var desktopFormDiv = document.getElementById('desktop-form');
+  desktopFormDiv.innerHTML = ''; // Clear previous content
+  desktopFormDiv.appendChild(form);
+}
   let friend
   let fetchCount = 0;
 
@@ -994,7 +1138,10 @@
                     <button type="button" class="w3-btn w3-round-xlarge" onclick="deleteChat('${message.chat_id}')" > <b><i class="fa fa-trash" style="font-size: 20px; position: absolute; top:30px; right: 30px;"></i></b> </button>`: ''}</p>
                   
                 <button onclick="myEmotion('class_${message.chat_id}')" class="w3-btn w3-round-xlarge">
-                  <i class="fa fa-etsy" aria-hidden="true"></i></button>
+                  <i class="fa fa-etsy" aria-hidden="true"></i></button>&nbsp;&nbsp;
+                  <button onclick="speakChat('${message.chat_text}')" class="w3-btn w3-round-xlarge">
+                    <i class="fa fa-volume-up" aria-hidden="true"></i></button>
+                  
                   
                   `: ''}
                   <span class="message-time">${message.created_at}</span>
@@ -1023,10 +1170,9 @@
                 </div>
                 <br>
                   <div id="class_${message.chat_id}" class="w3-hide" style="margin: 0px; padding: 0px; width: 100%;">
-                    <p style="background-color: #f2f2f2; width: 90%;">${message.transcript}<br>Emotion: ${message.emotion_class}</p>
-                      <!--<br>
-                      <button  class="w3-btn">
-                        <i class="fa fa-text-width" aria-hidden="true" style="font-size: 20px;"></i></button>-->
+                    <p style="background-color: #f2f2f2; width: 90%;">${message.transcript}&nbsp;&nbsp;
+                      ${message.chat_from === currentUser ? `<button  class="w3-btn" onclick="document.getElementById('mobile-edit').style.display='block';editTranscriptMobile('${message.chat_id}', '${message.transcript}');"><i class="fa fa-pencil" aria-hidden="true"></i></button>`: ''}
+                      <br>Emotion: ${message.emotion_class}</p>
                   </div>
           `;
         }
@@ -1086,7 +1232,9 @@
                     <button type="button" class="w3-btn w3-round-xlarge" onclick="deleteChat('${message.chat_id}')" > <b><i class="fa fa-trash" style="font-size: 20px; position: absolute; top:30px; right: 30px;"></i></b> </button>`: ''}</p>
                   
                 <button onclick="myEmotion('class_${message.chat_id}')" class="w3-btn w3-round-xlarge">
-                  <i class="fa fa-etsy" aria-hidden="true"></i></button>
+                  <i class="fa fa-etsy" aria-hidden="true"></i></button> &nbsp;&nbsp;
+                  <button onclick="speakChat('${message.chat_text}')" class="w3-btn w3-round-xlarge">
+                    <i class="fa fa-volume-up" aria-hidden="true"></i></button>
                   
                   `: ''}
                   <span class="message-time">${message.created_at}</span>
@@ -1114,10 +1262,10 @@
                 </div>
                 <br>
                   <div id="class_${message.chat_id}" class="w3-hide" style="margin: 0px; padding: 0px; width: 100%;">
-                    <p style="background-color: #f2f2f2; width: 90%;">${message.transcript}<br>Emotion: ${message.emotion_class}</p>
-                      <!--<br>
-                      <button  class="w3-btn">
-                        <i class="fa fa-text-width" aria-hidden="true" style="font-size: 20px;"></i></button>-->
+                    <p style="background-color: #f2f2f2; width: 90%;">${message.transcript}&nbsp;&nbsp;
+                      ${message.chat_from === currentUser ? `<button  class="w3-btn" onclick="document.getElementById('desktop-edit').style.display='block';editTranscriptDesktop('${message.chat_id}', '${message.transcript}');" ><i class="fa fa-pencil" aria-hidden="true"></i></button>`: ''}
+                      <br>Emotion: ${message.emotion_class}</p>
+                    
                   </div>
           `;
         }

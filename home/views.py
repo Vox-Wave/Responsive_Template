@@ -17,6 +17,7 @@ from pathlib import Path
 # import speech_recognition as sr
 import numpy as np
 import librosa
+from django.urls import reverse
 from .apps import whisper_model, speech_emotion_model, label_encoder, text_emotion_model, cv
 from django.shortcuts import get_object_or_404
 
@@ -632,3 +633,24 @@ def message_view(request):
     # print(user_followers_list)
     # print(user_following_list)
     return render(request, "chat.html", { "friends_list": sorted_friends_list, "user_profile": user_profile})
+
+@csrf_exempt
+@login_required(login_url='signin')
+def edit_transcript_view(request):
+    if request.method == 'POST':
+        # Get chat_id and transcript from the POST request
+        chat_id = request.POST.get('chat_id')
+        transcript = request.POST.get('transcript')
+        
+        # Update transcript logic
+        try:
+            chat_log = ChatLog.objects.get(chat_id=chat_id)
+            chat_log.transcript = transcript
+            chat_log.save()
+            # Assuming 'message_page' is the name of the URL pattern for the message page
+            return redirect(reverse('message_page'))
+        except ChatLog.DoesNotExist:
+            return JsonResponse({'error': 'ChatLog not found'}, status=404)
+    else:
+        # Method not allowed
+        return JsonResponse({'error': 'Method not allowed'}, status=405)

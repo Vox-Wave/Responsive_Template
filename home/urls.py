@@ -17,5 +17,6 @@ urlpatterns = [
     path('delete-chat/<str:chat_id>/', views.delete_chat, name='delete_chat'),
     path('chat/<str:friendUsername>/', views.get_chat_log, name='chat_log'),
     path("message_page", views.message_view, name="message_page"),
+    path('edit-transcript/', views.edit_transcript_view, name='edit-transcript'),
 ]
 
