@@ -11,10 +11,8 @@
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
     }
-    /* Media query for screens smaller than 600px */
+    /* Media query for screens smaller than 767px */
     @media (max-width: 767px) {
-      /* Custom CSS rules for screens smaller than 600px */
-      /* Adjust styles for smaller screens here */
       .profile-image{
         width: 150px;
         height: 150px;
@@ -28,6 +26,7 @@
         position: fixed; 
         top:0px; 
         left:0px; 
+        width: 100%;
         padding: 0px; 
         z-index: 1600;
       }
@@ -111,7 +110,7 @@
         color: grey; 
         position: absolute; 
         top: 150px; 
-        left: 300px;
+        right: 100px;
       }
       .post-container{
         margin-top: 480px; 
@@ -144,31 +143,539 @@
       }
     }
 
-    /* Media query for screens between 601px and 900px */
+    /* Media query for screens between 768px and 899px */
     @media (min-width: 768px) and (max-width: 899px){
-      /* Custom CSS rules for screens between 601px and 900px */
-      /* Adjust styles for medium-sized screens here */
-      
+      .profile-image{
+        width: 180px;
+        height: 180px;
+        padding: 6px;
+        position: absolute;
+        background-color: white;
+        top:180px;
+        right: 20px;
+      }
+      .header{
+        position: fixed; 
+        top:0px; 
+        left:0px; 
+        width: 100%;
+        padding: 0px; 
+        z-index: 1600;
+      }
+      .banner-container{
+        padding-left: 0px; 
+        padding-right: 0px; 
+        margin-right: 0px; 
+        margin-bottom: 0px; 
+        position: relative;
+      }
+      .banner-image-container{
+        padding: 0px; 
+        height: 380px; 
+        background-color: white; 
+        border-bottom-left-radius: 30px; 
+        border-bottom-right-radius: 30px;
+      }
+      .banner-image{
+        height: 300px; 
+        width: 100%;
+      }
+      .username{
+        position: absolute; 
+        top: 320px; 
+        right: 260px; 
+        font-size: 40px;
+      }
+      .lists{
+        position: absolute; 
+        height: 100px; 
+        width:300px;
+        padding: 0px;
+        margin-left: 30px;
+        top:290px;
+      }
+      .count{
+        height: 100%;
+        width: 100%;
+        padding-top: 20px;
+        font-size: 15px;
+      }
+      .follower-btn{
+        background-color: transparent; 
+        color: black; 
+        padding: 0px; 
+        margin-left: 0px;
+      }
+      .following-btn{
+        background-color: transparent; 
+        color: black; 
+        padding: 0px; 
+        margin-left: 0px;
+      }
+      .home-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top:10px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px; 
+        left:20px;
+        z-index: 1000; 
+        font-size: 40px;
+      }
+      .settings-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top:150px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px; 
+        left:20px;
+        z-index: 1000; 
+        font-size: 40px;
+      }
+      .follow-unfollow-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top: 220px; 
+        right: 250px;
+      }
+      .post-container{
+        margin-top: 400px; 
+        margin-left: 150px; 
+        width: 60%;
+      }
+      .post-card{
+        background-color: #f2f2f2; 
+        position: relative; 
+        margin-bottom: 10px; 
+        margin-top: 20px;
+      }
+      .post-image{
+        width:100%;
+        height: 40%;
+      }
+      .post-caption{
+        height:auto;
+        margin-bottom: 20px;
+      }
+      .delete-button{
+        position: absolute; 
+        top:10px; 
+        right:10px;
+      }
+      .likes-count{
+        position: absolute; 
+        bottom:85px; 
+        right:10px; 
+        color: white;
+      }
     }
 
-    /* Media query for screens between 601px and 900px */
+    /* Media query for screens between 900px and 1199px */
     @media (min-width: 900px) and (max-width: 1199px) {
-      /* Custom CSS rules for screens between 601px and 900px */
-      /* Adjust styles for medium-sized screens here */
-      
+      .profile-image{
+        width: 180px;
+        height: 180px;
+        padding: 6px;
+        position: absolute;
+        background-color: white;
+        top:280px;
+        right: 20px;
+      }
+      .header{
+        position: fixed; 
+        top:0px; 
+        left:0px; 
+        width: 100%;
+        padding: 0px; 
+        z-index: 1600;
+      }
+      .banner-container{
+        padding-left: 0px; 
+        padding-right: 0px; 
+        margin-right: 0px; 
+        margin-bottom: 0px; 
+        position: relative;
+      }
+      .banner-image-container{
+        padding: 0px; 
+        height: 480px; 
+        background-color: white; 
+        border-bottom-left-radius: 30px; 
+        border-bottom-right-radius: 30px;
+      }
+      .banner-image{
+        height: 380px; 
+        width: 100%;
+      }
+      .username{
+        position: absolute; 
+        top: 400px; 
+        right: 380px; 
+        font-size: 40px;
+      }
+      .lists{
+        position: absolute; 
+        height: 100px; 
+        width:300px;
+        padding: 0px;
+        margin-left: 30px;
+        top:380px;
+      }
+      .count{
+        height: 100%;
+        width: 100%;
+        padding-top: 20px;
+        font-size: 15px;
+      }
+      .follower-btn{
+        background-color: transparent; 
+        color: black; 
+        padding: 0px; 
+        margin-left: 0px;
+      }
+      .following-btn{
+        background-color: transparent; 
+        color: black; 
+        padding: 0px; 
+        margin-left: 0px;
+      }
+      .home-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top:10px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px; 
+        left:20px;
+        z-index: 1000; 
+        font-size: 40px;
+      }
+      .settings-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top:150px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px; 
+        left:20px;
+        z-index: 1000; 
+        font-size: 40px;
+      }
+      .follow-unfollow-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top: 300px; 
+        right: 260px;
+      }
+      .post-container{
+        margin-top: 490px; 
+        margin-left: 200px; 
+        width: 50%;
+      }
+      .post-card{
+        background-color: #f2f2f2; 
+        position: relative; 
+        margin-bottom: 10px; 
+        margin-top: 20px;
+      }
+      .post-image{
+        width:100%;
+        height: 40%;
+      }
+      .post-caption{
+        height:auto;
+        margin-bottom: 20px;
+      }
+      .delete-button{
+        position: absolute; 
+        top:10px; 
+        right:10px;
+      }
+      .likes-count{
+        position: absolute; 
+        bottom:85px; 
+        right:10px; 
+        color: white;
+      }
     }
 
-    /* Media query for screens larger than 901px */
+    /* Media query for screens between 1200px and 1700px */
     @media screen and ((min-width: 1200px) and (max-width: 1700px)) {
-      /* Custom CSS rules for screens larger than 901px */
-      /* Adjust styles for larger screens here */
-      
+      .profile-image{
+        width: 180px;
+        height: 180px;
+        padding: 6px;
+        position: absolute;
+        background-color: white;
+        top:280px;
+        right: 20px;
+      }
+      .header{
+        position: fixed; 
+        top:0px; 
+        left:0px; 
+        width: 100%;
+        padding: 0px; 
+        z-index: 1600;
+      }
+      .banner-container{
+        padding-left: 0px; 
+        padding-right: 0px; 
+        margin-right: 0px; 
+        margin-bottom: 0px; 
+        position: relative;
+      }
+      .banner-image-container{
+        padding: 0px; 
+        height: 480px; 
+        background-color: white; 
+        border-bottom-left-radius: 30px; 
+        border-bottom-right-radius: 30px;
+      }
+      .banner-image{
+        height: 380px; 
+        width: 100%;
+      }
+      .username{
+        position: absolute; 
+        top: 400px; 
+        right: 400px; 
+        font-size: 50px;
+      }
+      .lists{
+        position: absolute; 
+        height: 100px; 
+        width:600px;
+        padding: 0px; 
+        top:380px;
+      }
+      .count{
+        height: 100%;
+        width: 100%;
+        padding-top: 20px;
+        font-size: 20px;
+      }
+      .follower-btn{
+        background-color: transparent; 
+        color: black; 
+        padding: 0px; 
+        margin-left: 0px;
+      }
+      .following-btn{
+        background-color: transparent; 
+        color: black; 
+        padding: 0px;
+        padding-left: 80px; 
+        margin-left: 0px;
+      }
+      .home-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top:10px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px; 
+        left:20px;
+        z-index: 1000; 
+        font-size: 40px;
+      }
+      .settings-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top:150px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px; 
+        left:20px;
+        z-index: 1000; 
+        font-size: 40px;
+      }
+      .follow-unfollow-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top: 300px; 
+        right: 250px;
+      }
+      .post-container{
+        margin-top: 490px; 
+        margin-left: 200px; 
+        width: 50%;
+      }
+      .post-card{
+        background-color: #f2f2f2; 
+        position: relative; 
+        margin-bottom: 10px; 
+        margin-top: 20px;
+      }
+      .post-image{
+        width:100%;
+        height: 40%;
+      }
+      .post-caption{
+        height:auto;
+        margin-bottom: 20px;
+      }
+      .delete-button{
+        position: absolute; 
+        top:10px; 
+        right:10px;
+      }
+      .likes-count{
+        position: absolute; 
+        bottom:85px; 
+        right:10px; 
+        color: white;
+      }
     }
-    /* Media query for screens larger than 901px */
+    /* Media query for screens larger than 1701px */
     @media screen and (min-width: 1701px) {
-      /* Custom CSS rules for screens larger than 901px */
-      /* Adjust styles for larger screens here */
-      
+      .profile-image{
+        width: 200px;
+        height: 200px;
+        padding: 6px;
+        position: absolute;
+        background-color: white;
+        top:350px;
+        right: 20px;
+      }
+      .header{
+        position: fixed; 
+        top:0px; 
+        left:0px; 
+        width: 100%;
+        padding: 0px; 
+        z-index: 1600;
+      }
+      .banner-container{
+        padding-left: 0px; 
+        padding-right: 0px; 
+        margin-right: 0px; 
+        margin-bottom: 0px; 
+        position: relative;
+      }
+      .banner-image-container{
+        padding: 0px; 
+        height: 580px; 
+        background-color: white; 
+        border-bottom-left-radius: 30px; 
+        border-bottom-right-radius: 30px;
+      }
+      .banner-image{
+        height: 480px; 
+        width: 100%;
+      }
+      .username{
+        position: absolute; 
+        top: 500px; 
+        right: 550px; 
+        font-size: 50px;
+      }
+      .lists{
+        position: absolute; 
+        height: 100px; 
+        width:600px;
+        padding: 0px; 
+        top:480px;
+      }
+      .count{
+        height: 100%;
+        width: 100%;
+        padding-top: 20px;
+        font-size: 20px;
+      }
+      .follower-btn{
+        background-color: transparent; 
+        color: black; 
+        padding: 0px; 
+        margin-left: 0px;
+      }
+      .following-btn{
+        background-color: transparent; 
+        color: black; 
+        padding: 0px;
+        padding-left: 80px; 
+        margin-left: 0px;
+      }
+      .home-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top:10px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px; 
+        left:20px;
+        z-index: 1000; 
+        font-size: 40px;
+      }
+      .settings-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top:150px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px; 
+        left:20px;
+        z-index: 1000; 
+        font-size: 40px;
+      }
+      .follow-unfollow-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top: 390px; 
+        right: 250px;
+      }
+      .post-container{
+        margin-top: 590px; 
+        margin-left: 200px; 
+        width: 50%;
+      }
+      .post-card{
+        background-color: #f2f2f2; 
+        position: relative; 
+        margin-bottom: 10px; 
+        margin-top: 20px;
+      }
+      .post-image{
+        width:100%;
+        height: 40%;
+      }
+      .post-caption{
+        height:auto;
+        margin-bottom: 20px;
+      }
+      .delete-button{
+        position: absolute; 
+        top:10px; 
+        right:10px;
+      }
+      .likes-count{
+        position: absolute; 
+        bottom:85px; 
+        right:10px; 
+        color: white;
+      }
     }
 </style>
 {% endblock %}
