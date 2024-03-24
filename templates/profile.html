@@ -24,7 +24,124 @@
         top:250px;
         right: 10px;
       }
-      
+      .header{
+        position: fixed; 
+        top:0px; 
+        left:0px; 
+        padding: 0px; 
+        z-index: 1600;
+      }
+      .banner-container{
+        padding-left: 0px; 
+        padding-right: 0px; 
+        margin-right: 0px; 
+        margin-bottom: 0px; 
+        position: relative;
+      }
+      .banner-image-container{
+        padding: 0px; 
+        height: 440px; 
+        background-color: white; 
+        border-bottom-left-radius: 30px; 
+        border-bottom-right-radius: 30px;
+      }
+      .banner-image{
+        height: 280px; 
+        width: 100%;
+      }
+      .username{
+        position: absolute; 
+        top: 280px; 
+        left: 40px; 
+        font-size: 40px;
+      }
+      .lists{
+        position: absolute; 
+        height: 100px; 
+        width:300px;
+        padding: 0px; 
+        top:340px;
+      }
+      .count{
+        height: 100%;
+        width: 100%;
+        padding-top: 20px;
+        font-size: 16px;
+      }
+      .follower-btn{
+        background-color: transparent; 
+        color: black; 
+        padding: 0px; 
+        margin-left: 0px;
+      }
+      .following-btn{
+        background-color: transparent; 
+        color: black; 
+        padding: 0px; 
+        margin-left: 0px;
+      }
+      .home-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top:10px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px; 
+        left:20px;
+        z-index: 1000; 
+        font-size: 40px;
+      }
+      .settings-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top:150px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px; 
+        left:20px;
+        z-index: 1000; 
+        font-size: 40px;
+      }
+      .follow-unfollow-btn{
+        background-color: white; 
+        color: grey; 
+        position: absolute; 
+        top: 150px; 
+        left: 300px;
+      }
+      .post-container{
+        margin-top: 480px; 
+        margin-left: 20px; 
+        width: 90%;
+      }
+      .post-card{
+        background-color: #f2f2f2; 
+        position: relative; 
+        margin-bottom: 10px; 
+        margin-top: 20px;
+      }
+      .post-image{
+        width:100%;
+      }
+      .post-caption{
+        height:auto;
+        margin-bottom: 20px;
+      }
+      .delete-button{
+        position: absolute; 
+        top:10px; 
+        right:10px;
+      }
+      .likes-count{
+        position: absolute; 
+        bottom:85px; 
+        right:10px; 
+        color: white;
+      }
     }
 
     /* Media query for screens between 601px and 900px */
@@ -57,22 +174,22 @@
 {% endblock %}
 
 {% block mybody %}
-<div class="w3-container" style="position: fixed; top:0px; left:0px; padding: 0px; z-index: 1600;">
-  <div class="w3-container w3-animate-opacity" style="padding-left: 0px; padding-right: 0px; margin-right: 0px; margin-bottom: 0px; position: relative;">
-      <div class="w3-container w3-card-4 banner-container" style="padding: 0px; height: 440px; background-color: white; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;">
-          <img src="{% static 'home/images/mobile_banner.jpeg' %}" style="height: 280px; width: 100%;" class="banner-image w3-border" alt="Banner" />
+<div class="w3-container header">
+  <div class="w3-container w3-animate-opacity banner-container">
+      <div class="w3-container w3-card-4 banner-image-container">
+          <img src="{% static 'home/images/mobile_banner.jpeg' %}" class="banner-image w3-border" alt="Banner" />
       </div>
       <img src="{{user_profile.profileimg.url}}" class="profile-image w3-border w3-circle w3-card-4" alt="Profile Pic" />
-      <div class="username w3-text-black capitalize w3-center" style="position: absolute; top: 280px; left: 40px; font-size: 40px;"><b><span>{{user_profile.user.username}}</span></b></div>
-      <div class="w3-container" style="position: absolute; height: 100px; width:300px;padding: 0px; top:340px;">
-          <div class="w3-container w3-cell w3-center" style="height: 100%;width: 100%;padding-top: 20px;font-size: 16px;">
+      <div class="username w3-text-black capitalize w3-center"><b><span>{{user_profile.user.username}}</span></b></div>
+      <div class="w3-container lists">
+          <div class="w3-container w3-cell w3-center count">
               {% if user_followers == 0 or user_followers == 1 %}
-              <button type="button" onclick="document.getElementById('follower').style.display='block'" class="w3-btn w3-round-large " style="background-color: transparent; color: black; padding: 0px; margin-left: 0px;"><b>{{user_followers}}<br>Follower</b></button>
+              <button type="button" onclick="document.getElementById('follower').style.display='block'" class="w3-btn w3-round-large follower-btn"><b>{{user_followers}}<br>Follower</b></button>
               {% else %}
-              <button type="button" onclick="document.getElementById('follower').style.display='block'" class="w3-btn w3-round-large " style="background-color: transparent; color: black;  padding: 0px; margin-left: 0px;"><b>{{user_followers}}<br>Followers</b></button>
+              <button type="button" onclick="document.getElementById('follower').style.display='block'" class="w3-btn w3-round-large follower-btn" ><b>{{user_followers}}<br>Followers</b></button>
               {% endif %}
           </div>
-          <div class="w3-container w3-cell w3-center" style="height: 100%;width: 100%;padding-top: 20px;font-size: 16px;">
+          <div class="w3-container w3-cell w3-center count" >
               {% if user_post_length == 0 %}
               <b> No<br>Posts</b>
               {% elif user_post_length == 1 %}
@@ -81,38 +198,38 @@
               <b>{{user_post_length}}<br>Posts</b>
               {% endif %}
           </div>
-          <div class="w3-container w3-cell w3-center" style="height: 100%;width: 100%;padding-top: 20px;font-size: 16px;">
-              <button type="button" onclick="document.getElementById('following').style.display='block'" class="w3-btn w3-round-large following-count" style="background-color: transparent; color: black; padding: 0px; margin-left: 0px;"><b>{{user_following}}<br>Following</b></button>
+          <div class="w3-container w3-cell w3-center count" >
+              <button type="button" onclick="document.getElementById('following').style.display='block'" class="w3-btn w3-round-large following-btn"><b>{{user_following}}<br>Following</b></button>
           </div>
       </div>
   </div>
-  <a href="/"><button type="button" class="w3-button w3-circle w3-round-large" style="background-color: white; color: grey; position: absolute; top:10px;border-bottom-left-radius: 50px;border-top-left-radius: 50px;border-bottom-right-radius: 50px;border-top-right-radius: 50px; left:20px;z-index: 1000; font-size: 40px;"> <i class="fa fa-home" aria-hidden="true"></i></button></a>
+  <a href="/"><button type="button" class="w3-button w3-circle w3-round-large home-btn"> <i class="fa fa-home" aria-hidden="true"></i></button></a>
   {% if user_object.username == user.username %}
-  <a href="/settings"><button type="button" class="w3-button w3-circle w3-round-large" style="background-color: white; color: grey; position: absolute; top:150px;border-bottom-left-radius: 50px;border-top-left-radius: 50px;border-bottom-right-radius: 50px;border-top-right-radius: 50px; left:20px;z-index: 1000; font-size: 40px;"> <i class="fa fa-gear fa-spin"></i></button></a>
+  <a href="/settings"><button type="button" class="w3-button w3-circle w3-round-large settings-btn"> <i class="fa fa-gear fa-spin"></i></button></a>
   {% else%}
   <form action="/follow" method="POST">
       {% csrf_token %}
       <input type="hidden" value="{{user.username}}" name="follower" />
       <input type="hidden" value="{{user_object.username}}" name="user" />
-      <button type="submit" class="w3-btn w3-border w3-round-large follow-button" style="background-color: white; color: grey; position: absolute; top: 150px; left: 300px;"><b>{{button_text}}</b></button>
+      <button type="submit" class="w3-btn w3-border w3-round-large follow-unfollow-btn" ><b>{{button_text}}</b></button>
   </form> 
   {% endif %}
 </div>
 
-<div class="w3-container" style="margin-top: 480px; margin-left: 20px; width: 90%;">
+<div class="w3-container post-container">
   {% for post in user_posts %}
-  <div class="w3-card-4 post-card w3-round-xlarge" style="background-color: #f2f2f2; position: relative; margin-bottom: 10px; margin-top: 20px;">
-      <img src="{{ post.image.url }}" alt="User-Post" class="w3-round-xlarge" style="width:100%;">
-      <div class="w3-container" style="height:auto;margin-bottom: 20px;">
+  <div class="w3-card-4 post-card w3-round-xlarge">
+      <img src="{{ post.image.url }}" alt="User-Post" class="w3-round-xlarge post-image">
+      <div class="w3-container post-caption" >
           <h3><b>{{ post.caption }}</b></h3>
       </div>
       {% if user_object.username == user.username %}
-      <div class="w3-container" style="position: absolute; top:10px; right:10px;">
-          <button type="button" onclick="delete_post('{{user_profile.user.username}}', '{{ post.id }}')" class="delete-button w3-btn"> <b><i class="fa fa-trash" style="font-size: 25px;"></i></b> </button>
+      <div class="w3-container delete-button">
+          <button type="button" onclick="delete_post('{{user_profile.user.username}}', '{{ post.id }}')" class="w3-btn"> <b><i class="fa fa-trash" style="font-size: 25px;"></i></b> </button>
       </div>
       {% endif %}
       {% if post.no_of_likes > 0 %}
-      <div class="w3-container" style="position: absolute; bottom:85px; right:10px; color: white;">
+      <div class="w3-container likes-count">
           <b style="text-shadow:1px 1px 0 #444;">{{post.no_of_likes}}&nbsp;&nbsp;</b><i class="fa fa-thumbs-up" aria-hidden="true" style="font-size: 30px;text-shadow:1px 1px 0 #444;"></i>
       </div>
       {% endif %}
