@@ -1587,7 +1587,7 @@ window.recordMessageDesktop = async function () {
       .then(data => {
           console.log('Message sent: ', data);
           // Optionally handle response data here
-          fetchChat(friend);
+          fetchChatDesktop(friend);
           if (data.status === 'success') {
             fetchChatAtRegularIntervalDesktop();
         }
